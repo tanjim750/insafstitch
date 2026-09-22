@@ -15,8 +15,9 @@
             return $package;
         }
 
-        $unitPrice = (float) ($selectedProduct['order_base_price'] ?? $selectedProduct['price'] ?? 0);
-        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity);
+        $unitPrice = (float) ($selectedProduct['price'] ?? $selectedProduct['order_base_price'] ?? 0);
+        $originalUnitPrice = (float) ($selectedProduct['order_base_price'] ?? $unitPrice);
+        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity, $originalUnitPrice);
 
         return array_merge($package, [
             'title' => $package['title'] ?: ($quantity > 1
@@ -108,14 +109,6 @@
                 </div>
             </div>
 
-            <div class="bari12-shipping-block">
-                <h3>{{ $content['shipping_heading'] ?? '' }}</h3>
-                <div class="bari12-shipping-row">
-                    <span>{{ $content['shipping_label'] ?? '' }}</span>
-                    <strong>0.00৳</strong>
-                </div>
-            </div>
-
             <div class="bari12-products-block">
                 <h3>{{ $content['products_heading'] ?? '' }}</h3>
                 @if(!$selectedProduct || $displayPackages->isEmpty())
@@ -142,7 +135,7 @@
                                     </span>
                                 </span>
                                 <strong class="bari12-package-price">
-                                    @if(!empty($package['has_custom_price']) && !empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
+                                    @if(!empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
                                         <s>{{ $package['original_price'] }}</s>
                                     @endif
                                     <span>{{ $package['price'] ?? '' }}</span>
@@ -155,9 +148,11 @@
 
             <div class="bari12-order-summary">
                 <h3>{{ $content['order_heading'] ?? '' }}</h3>
+                @include('landing.components.partials.delivery-charge-options')
                 <div class="bari12-summary-table">
-                    <div class="bari12-summary-row"><span>Subtotal</span><strong data-bari12-subtotal>{{ $selectedPrice }}</strong></div>
-                    <div class="bari12-summary-row total"><span>Total</span><strong data-bari12-total>{{ $selectedPrice }}</strong></div>
+                    <div class="bari12-summary-row"><span>Subtotal</span><strong data-bari12-subtotal data-checkout-subtotal>{{ $selectedPrice }}</strong></div>
+                    <div class="bari12-summary-row"><span>Delivery</span><strong data-checkout-shipping>৳0</strong></div>
+                    <div class="bari12-summary-row total"><span>Total</span><strong data-bari12-total data-checkout-total>{{ $selectedPrice }}</strong></div>
                 </div>
                 <div class="bari12-payment">
                     <strong>{{ $content['payment_title'] ?? '' }}</strong>

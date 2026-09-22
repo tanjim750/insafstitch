@@ -33,7 +33,7 @@
                 @endif
             </span>
         </div>
-        <a class="sheikh-floating-btn" href="{{ $render->href($content['button_url'] ?? '#greenseed-checkout-form') }}">
+        <a class="sheikh-floating-btn" href="{{ $render->href($content['button_url'] ?? '#trizync-solution-checkout-form') }}">
             <span>{{ $content['button_text'] ?? 'অর্ডার করুন' }}</span>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg>
         </a>
@@ -45,7 +45,7 @@
     (() => {
         const spacer = document.currentScript.previousElementSibling;
         const root = spacer?.previousElementSibling;
-        const checkout = document.getElementById('greenseed-checkout-form');
+        const checkout = document.getElementById('trizync-solution-checkout-form');
 
         if (!root || !root.classList.contains('sheikh-floating-order') || !checkout) {
             return;

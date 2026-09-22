@@ -15,8 +15,9 @@
             return $package;
         }
 
-        $unitPrice = (float) ($selectedProduct['order_base_price'] ?? $selectedProduct['price'] ?? 0);
-        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity);
+        $unitPrice = (float) ($selectedProduct['price'] ?? $selectedProduct['order_base_price'] ?? 0);
+        $originalUnitPrice = (float) ($selectedProduct['order_base_price'] ?? $unitPrice);
+        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity, $originalUnitPrice);
 
         return array_merge($package, [
             'title' => $package['title'] ?: ($quantity > 1
@@ -149,7 +150,7 @@
                                             <small>{{ $package['subtitle'] }}</small>
                                         @endif
                                         <span class="seed-v2-package-price">
-                                            @if(!empty($package['has_custom_price']) && !empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
+                                            @if(!empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
                                                 <s>{{ $package['original_price'] }}</s>
                                             @endif
                                             <b>{{ $package['price'] ?? '' }}</b>
@@ -164,10 +165,11 @@
 
                 <section class="seed-v2-card seed-v2-summary-card">
                     <h3>{{ $content['summary_heading'] ?? '' }}</h3>
+                    @include('landing.components.partials.delivery-charge-options')
                     <div class="seed-v2-summary">
-                        <div><span>উপ-মোট (Subtotal)</span><strong data-seed-v2-subtotal>{{ $selectedPrice }}</strong></div>
-                        <div><span>শিপিং (ফ্রি ডেলিভারী)</span><strong>০৳</strong></div>
-                        <div class="seed-v2-total"><span>সর্বমোট (Total)</span><strong data-seed-v2-total>{{ $selectedPrice }}</strong></div>
+                        <div><span>উপ-মোট (Subtotal)</span><strong data-seed-v2-subtotal data-checkout-subtotal>{{ $selectedPrice }}</strong></div>
+                        <div><span>শিপিং</span><strong data-checkout-shipping>৳0</strong></div>
+                        <div class="seed-v2-total"><span>সর্বমোট (Total)</span><strong data-seed-v2-total data-checkout-total>{{ $selectedPrice }}</strong></div>
                     </div>
 
                     <div class="seed-v2-payment">
@@ -177,7 +179,7 @@
 
                     <button type="submit" @disabled(!$selectedProduct || $displayPackages->isEmpty())>
                         {{ $content['button_text'] ?? 'Order Now' }}
-                        <span data-seed-v2-cta-price>{{ $selectedPrice }}</span>
+                        <span data-seed-v2-cta-price data-checkout-total>{{ $selectedPrice }}</span>
                     </button>
                     @if(!empty($content['secure_text']))
                         <p class="seed-v2-secure">{{ $content['secure_text'] }}</p>

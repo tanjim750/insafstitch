@@ -15,8 +15,9 @@
             return $package;
         }
 
-        $unitPrice = (float) ($selectedProduct['order_base_price'] ?? $selectedProduct['price'] ?? 0);
-        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity);
+        $unitPrice = (float) ($selectedProduct['price'] ?? $selectedProduct['order_base_price'] ?? 0);
+        $originalUnitPrice = (float) ($selectedProduct['order_base_price'] ?? $unitPrice);
+        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity, $originalUnitPrice);
 
         return array_merge($package, [
             'title' => $package['title'] ?: ($quantity > 1
@@ -107,7 +108,7 @@
                                         @endif
                                     </span>
                                     <strong class="sheikh-package-price">
-                                        @if(!empty($package['has_custom_price']) && !empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
+                                        @if(!empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
                                             <s>{{ $package['original_price'] }}</s>
                                         @endif
                                         <span>{{ $package['price'] ?? '' }}</span>
@@ -139,6 +140,7 @@
 
                     <div>
                         <h3>{{ $content['order_heading'] ?? '' }}</h3>
+                        @include('landing.components.partials.delivery-charge-options')
                         <div class="sheikh-summary-box">
                             <div class="sheikh-summary-line">
                                 <span>Product</span>
@@ -146,11 +148,15 @@
                             </div>
                             <div class="sheikh-summary-line">
                                 <span>Subtotal</span>
-                                <strong data-sheikh-subtotal>{{ $selectedPrice }}</strong>
+                                <strong data-sheikh-subtotal data-checkout-subtotal>{{ $selectedPrice }}</strong>
+                            </div>
+                            <div class="sheikh-summary-line">
+                                <span>Delivery</span>
+                                <strong data-checkout-shipping>৳0</strong>
                             </div>
                             <div class="sheikh-summary-line total">
                                 <span>Total</span>
-                                <strong data-sheikh-total>{{ $selectedPrice }}</strong>
+                                <strong data-sheikh-total data-checkout-total>{{ $selectedPrice }}</strong>
                             </div>
                         </div>
                         <div class="sheikh-shipping-note sheikh-payment-note">

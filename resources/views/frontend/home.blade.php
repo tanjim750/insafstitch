@@ -4,7 +4,9 @@
 
 @php
     use App\Models\AdminText;
+    use App\Utils\Configurations\Home as HomeTheme;
     $adminText = AdminText::first();
+    $homeTheme = HomeTheme::theme();
     
     // Dynamic Texts
     $popularTitle = $adminText->popular_category_title ?? 'POPULAR CATEGORIES';
@@ -341,11 +343,42 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('frontend/css/home-fashion.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fashion-bg: {{ $homeTheme['background'] }};
+            --fashion-surface: {{ $homeTheme['surface'] }};
+            --fashion-surface-alt: {{ $homeTheme['surface_alt'] }};
+            --fashion-surface-muted: {{ $homeTheme['surface_muted'] }};
+            --fashion-text: {{ $homeTheme['text'] }};
+            --fashion-muted: {{ $homeTheme['muted'] }};
+            --fashion-text-secondary: {{ $homeTheme['text_secondary'] }};
+            --fashion-text-muted: {{ $homeTheme['text_muted'] }};
+            --fashion-primary: {{ $homeTheme['primary'] }};
+            --fashion-primary-hover: {{ $homeTheme['primary_hover'] }};
+            --fashion-primary-text: {{ $homeTheme['primary_text'] }};
+            --fashion-accent: {{ $homeTheme['accent'] }};
+            --fashion-accent-hover: {{ $homeTheme['accent_hover'] }};
+            --fashion-accent-soft: {{ $homeTheme['accent_soft'] }};
+            --fashion-border: {{ $homeTheme['border'] }};
+            --fashion-display: '{{ $homeTheme['display_font'] }}', serif;
+            --fashion-body: '{{ $homeTheme['body_font'] }}', sans-serif;
+            --fashion-width: {{ $homeTheme['container_width'] }};
+            --fashion-space: {{ $homeTheme['section_spacing'] }};
+            --fashion-image-radius: {{ $homeTheme['image_radius'] }};
+            --fashion-card-radius: {{ $homeTheme['card_radius'] }};
+        }
+    </style>
 @endpush
 
-<main class="main-wrapper">
+<main class="main-wrapper fashion-home" data-home-theme="{{ strtolower($homeTheme['name']) }}">
     {{-- Puratai ekta Container e Wrap kora holo --}}
-    <div class="container bg-white" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); padding-top: 15px;">
+    <div class="container fashion-shell">
+        <div class="fashion-intro">
+            <span>{{ $homeTheme['eyebrow'] }}</span>
+            <p>Considered clothing, expressive details, and everyday pieces selected for a modern wardrobe.</p>
+        </div>
 
         {{-- 1. DESKTOP HERO SLIDER --}}
         <div class="desktop-slide p-0">
@@ -356,7 +389,7 @@
                             <div class="swiper-slide img-overlay">
                                 <a href="{{$s->link}}">
                                     <img src="{{ getImage('sliders', $s->image) }}" alt="Slider Image">
-                                    <div class="banner-text"><span>Shop Now</span></div>
+                                    <div class="banner-text"><span>{{ $homeTheme['hero_action'] }}</span></div>
                                 </a>
                             </div>
                         @endforeach
@@ -374,7 +407,7 @@
                             <div class="swiper-slide img-overlay">
                                 <a href="{{$s->link}}">
                                     <img src="{{ getImage('mobile_sliders', $s->mobile_image) }}" alt="Mobile Slider">
-                                    <div class="banner-text"><span>Shop Now</span></div>
+                                    <div class="banner-text"><span>{{ $homeTheme['hero_action'] }}</span></div>
                                 </a>
                             </div>
                         @endforeach
@@ -389,7 +422,7 @@
         <div class="px-0 mt-3" data-aos="fade-up" data-aos-duration="900">
             <a href="{{ $featured_images->right_link ?? '#' }}" class="promo-banner banner-full img-overlay">
                 <img src="{{ !empty($featured_images->right_image) ? asset('homeimages/'.$featured_images->right_image) : 'https://via.placeholder.com/1600x500?text=Full+Width+Banner+1' }}" alt="Full Banner 1">
-                <div class="banner-text"><span>Shop Now</span></div>
+                <div class="banner-text"><span>{{ $homeTheme['hero_action'] }}</span></div>
             </a>
         </div>
 
@@ -399,13 +432,13 @@
                 <div class="banner-col" data-aos="fade-right" data-aos-duration="900">
                     <a href="{{ $featured_images->left_link_1 ?? '#' }}" class="promo-banner banner-half img-overlay">
                         <img src="{{ $featured_images->left_image_1 ? asset('homeimages/'.$featured_images->left_image_1) : 'https://via.placeholder.com/800x400?text=Image+1' }}" alt="Promo 1">
-                        <div class="banner-text"><span>Shop Now</span></div>
+                        <div class="banner-text"><span>{{ $homeTheme['hero_action'] }}</span></div>
                     </a>
                 </div>
                 <div class="banner-col" data-aos="fade-left" data-aos-duration="900">
                     <a href="{{ $featured_images->left_link_2 ?? '#' }}" class="promo-banner banner-half img-overlay">
                         <img src="{{ $featured_images->left_image_2 ? asset('homeimages/'.$featured_images->left_image_2) : 'https://via.placeholder.com/800x400?text=Image+2' }}" alt="Promo 2">
-                        <div class="banner-text"><span>Shop Now</span></div>
+                        <div class="banner-text"><span>{{ $homeTheme['hero_action'] }}</span></div>
                     </a>
                 </div>
             </div>
@@ -415,7 +448,7 @@
         <div class="px-0 mt-3" data-aos="fade-up" data-aos-duration="900">
             <a href="{{ $featured_images->left_link_3 ?? '#' }}" class="promo-banner banner-full img-overlay">
                 <img src="{{ !empty($featured_images->left_image_3) ? asset('homeimages/'.$featured_images->left_image_3) : 'https://via.placeholder.com/1600x500?text=Full+Width+Banner+2' }}" alt="Full Banner 2">
-                <div class="banner-text"><span>Shop Now</span></div>
+                <div class="banner-text"><span>{{ $homeTheme['hero_action'] }}</span></div>
             </a>
         </div>
 
@@ -424,7 +457,10 @@
         {{-- 5. POPULAR CATEGORY --}}
         <div class="popular-section mt-4 px-2" data-aos="fade-up" data-aos-duration="800">
             <div class="section-header">
-                <h3>{{ $popularTitle }}</h3>
+                <div class="section-heading">
+                    <span class="section-kicker">{{ $homeTheme['category_kicker'] }}</span>
+                    <h3>{{ $popularTitle }}</h3>
+                </div>
             </div>
 
             <div class="popular-swiper-wrap">
@@ -455,7 +491,10 @@
             <div class="product-section-wrap mt-4 px-2" data-aos="fade-up" data-aos-duration="800">
                 @if($catName)
                     <div class="section-header">
-                        <h3>{{ $catName }}</h3>
+                        <div class="section-heading">
+                            <span class="section-kicker">{{ $homeTheme['products_kicker'] }}</span>
+                            <h3>{{ $catName }}</h3>
+                        </div>
                         @if($catUrl)
                             <a href="{{ route('front.subCategories1', [$catUrl]) }}">{{ $viewAllText }}</a>
                         @endif
@@ -466,7 +505,7 @@
                     @foreach($products as $product)
                         @continue($loop->iteration > 6)
                         <div class="col">
-                            @include('frontend.products.partials.product_section', ['adminText' => $adminText])
+                            @include('frontend.products.partials.product_section', ['adminText' => $adminText, 'homeTheme' => $homeTheme])
                         </div>
                     @endforeach
                 </div>
@@ -476,7 +515,7 @@
         {{-- 7. BOTTOM CTA --}}
         <div class="bottom-cta-container" data-aos="zoom-in" data-aos-duration="900">
             <a href="{{ route('front.products.index') }}" class="bottom-view-btn">
-                View All Products <i class="fas fa-arrow-right ms-2"></i>
+                {{ $homeTheme['view_all'] }} <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
 

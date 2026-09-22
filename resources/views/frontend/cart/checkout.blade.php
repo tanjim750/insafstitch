@@ -1,4 +1,8 @@
 @extends('frontend.app')
+@php
+use App\Utils\Configurations\Checkout as CheckoutTheme;
+$checkoutTheme = CheckoutTheme::theme();
+@endphp
 @section('content')
 
 <style>
@@ -223,6 +227,32 @@
   }
 </style>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('frontend/css/checkout-editorial.css') }}">
+<style>
+  :root {
+    --checkout-background: {{ $checkoutTheme['background'] }};
+    --checkout-surface: {{ $checkoutTheme['surface'] }};
+    --checkout-surface-muted: {{ $checkoutTheme['surface_muted'] }};
+    --checkout-text: {{ $checkoutTheme['text_primary'] }};
+    --checkout-text-secondary: {{ $checkoutTheme['text_secondary'] }};
+    --checkout-text-muted: {{ $checkoutTheme['text_muted'] }};
+    --checkout-border: {{ $checkoutTheme['border'] }};
+    --checkout-primary: {{ $checkoutTheme['primary'] }};
+    --checkout-primary-hover: {{ $checkoutTheme['primary_hover'] }};
+    --checkout-primary-text: {{ $checkoutTheme['primary_text'] }};
+    --checkout-accent: {{ $checkoutTheme['accent'] }};
+    --checkout-accent-hover: {{ $checkoutTheme['accent_hover'] }};
+    --checkout-accent-soft: {{ $checkoutTheme['accent_soft'] }};
+    --checkout-success: {{ $checkoutTheme['success'] }};
+    --checkout-display-font: {!! $checkoutTheme['display_font'] !!};
+    --checkout-body-font: {!! $checkoutTheme['body_font'] !!};
+    --checkout-container-width: {{ $checkoutTheme['container_width'] }};
+  }
+</style>
+
 @php
 use App\Models\Information;
 use App\Models\BanglaText;
@@ -241,8 +271,8 @@ $globalSetting = DB::table('delivery_charges')->first();
 $isWeightBased = $globalSetting && $globalSetting->charge_type == 'weight_based';
 @endphp
 
-<main class="main-wrapper">
- <section class="section-content py-5" style="margin-top:60px; background: #f5f6fa;">
+<main class="main-wrapper checkout-editorial">
+ <section class="section-content py-5 checkout-section" style="margin-top:60px;">
     <div class="container">
         <form action="{{ route('front.checkouts.store')}}" method="POST" id="checkout_form">
             @csrf
@@ -250,14 +280,14 @@ $isWeightBased = $globalSetting && $globalSetting->charge_type == 'weight_based'
             @php if(!session()->has('order_token')){ session(['order_token' => (string) \Illuminate\Support\Str::uuid()]); } @endphp
             <input type="hidden" name="order_token" value="{{ session('order_token') }}">
 
-            <div class="row justify-content-center g-4">
-                <div class="col-lg-8 col-md-10">
+            <div class="row justify-content-center g-4 checkout-shell">
+                <div class="col-12 checkout-layout">
 
                     <div class="card border-0 shadow-sm rounded-4 p-4 orderDetails bg-white mb-4">
                         @include('frontend.cart.details')
                     </div>
 
-                    <aside class="card border-0 shadow-sm rounded-4 p-4">
+                    <aside class="card border-0 shadow-sm rounded-4 p-4 checkout-form-panel">
                         <h4 class="mb-4 fw-bold" style="font-family: 'Hind Siliguri', sans-serif; text-align: justify;">
                             {{ $bangla_text->checkout_form_top_text }}
                         </h4>

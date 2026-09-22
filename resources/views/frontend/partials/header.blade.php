@@ -1,10 +1,12 @@
 @php
     use App\Models\Information;
     use App\Models\Category;
+    use App\Utils\Configurations\Header as HeaderTheme;
     $information   = Information::first();
     $categories    = Category::whereNull('parent_id')->where('is_menu', 1)->with('subcats')->get();
-    $brandGradient = $information->gradient_code ?? 'linear-gradient(90deg,#0d6efd,#00276C)';
-    $brandText     = $information->primary_color ?? '#ffffff';
+    $headerTheme   = HeaderTheme::theme();
+    $brandGradient = $headerTheme['surface'];
+    $brandText     = $headerTheme['text_primary'];
 @endphp
 
 <style>
@@ -855,7 +857,26 @@ body.hide-header .axil-header { display: none !important; }
 }
 </style>
 
-<div class="container">
+<link rel="stylesheet" href="{{ asset('frontend/css/header-modern-editorial.css') }}">
+<style>
+    :root {
+        --header-background: {{ $headerTheme['background'] }};
+        --header-surface: {{ $headerTheme['surface'] }};
+        --header-surface-muted: {{ $headerTheme['surface_muted'] }};
+        --header-text: {{ $headerTheme['text_primary'] }};
+        --header-text-secondary: {{ $headerTheme['text_secondary'] }};
+        --header-text-muted: {{ $headerTheme['text_muted'] }};
+        --header-border: {{ $headerTheme['border'] }};
+        --header-primary: {{ $headerTheme['primary'] }};
+        --header-primary-hover: {{ $headerTheme['primary_hover'] }};
+        --header-primary-text: {{ $headerTheme['primary_text'] }};
+        --header-accent: {{ $headerTheme['accent'] }};
+        --header-accent-hover: {{ $headerTheme['accent_hover'] }};
+        --header-accent-soft: {{ $headerTheme['accent_soft'] }};
+    }
+</style>
+
+<div class="container header-shell-container">
     {{-- ============ TOP NOTICE BAR ============ --}}
     @if(isset($information) && $information->topbar_active == 1 && !empty($information->topbar_notice))
         <div class="topbar-strides">

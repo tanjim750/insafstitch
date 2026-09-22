@@ -6,6 +6,7 @@
     use App\Models\Page;
     use App\Models\ProductStock;
     use App\Models\AdminText;
+    use App\Utils\Configurations\Product as ProductTheme;
 
     $aboutUs        = Page::where('page','about')->first();
     $termsCondition = Page::where('page','term')->first();
@@ -15,6 +16,7 @@
     $singleProduct->loadMissing(['variations.size','variations.color','variations.stocks']);
 
     $dt = AdminText::first();
+    $productTheme = ProductTheme::theme();
 
     $DEFAULT_SIZE_ID  = 0; 
     $DEFAULT_COLOR_ID = 0; 
@@ -1200,10 +1202,34 @@
         }
     }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('frontend/css/product-detail-editorial.css') }}">
+<style>
+    :root {
+        --product-background: {{ $productTheme['background'] }};
+        --product-surface: {{ $productTheme['surface'] }};
+        --product-surface-muted: {{ $productTheme['surface_muted'] }};
+        --product-text: {{ $productTheme['text_primary'] }};
+        --product-text-secondary: {{ $productTheme['text_secondary'] }};
+        --product-text-muted: {{ $productTheme['text_muted'] }};
+        --product-border: {{ $productTheme['border'] }};
+        --product-primary: {{ $productTheme['primary'] }};
+        --product-primary-hover: {{ $productTheme['primary_hover'] }};
+        --product-primary-text: {{ $productTheme['primary_text'] }};
+        --product-accent: {{ $productTheme['accent'] }};
+        --product-accent-hover: {{ $productTheme['accent_hover'] }};
+        --product-accent-soft: {{ $productTheme['accent_soft'] }};
+        --product-display-font: {!! $productTheme['display_font'] !!};
+        --product-body-font: {!! $productTheme['body_font'] !!};
+        --product-container-width: {{ $productTheme['container_width'] }};
+    }
+</style>
 @endpush
 
 @section('content')
-<main class="main-wrapper">
+<main class="main-wrapper product-detail-editorial">
     <div class="axil-single-product-area p pb--0 bg-color-white">
         <div class="single-product-thumb mb--5">
             <div class="container mt-4 mobile_show">
@@ -1298,13 +1324,13 @@
                                     <p class="details-price">
                                         @if($initRaw > $initFinal && $initRaw > 0)
                                           <del id="product-old-price" class="price old-price">
-                                              {{ biz_format_currency($initRaw) }}
+                                              {{ priceFormate($initRaw) }}
                                           </del>
                                         @else
                                           <del id="product-old-price" class="price old-price" style="display:none;"></del>
                                         @endif
 
-                                        <span class="current-price-product">{{ biz_format_currency($initFinal) }}</span>
+                                        <span class="current-price-product">{{ priceFormate($initFinal) }}</span>
                                     </p>
 
                                     <form action="{{ route('front.carts.storeCart') }}" id="cart_submit" method="POST">
@@ -1452,7 +1478,7 @@
                                                         @foreach($charges as $charge)
                                                         <tr>
                                                             <td>{{ $charge->title }}</td>
-                                                            <td>{{ biz_format_currency($charge->amount) }}</td>
+                                                            <td>{{ priceFormate($charge->amount) }}</td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody>

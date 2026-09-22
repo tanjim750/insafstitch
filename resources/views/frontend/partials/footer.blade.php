@@ -1,8 +1,10 @@
 @php
     use App\Models\Information;
+    use App\Utils\Configurations\Footer as FooterTheme;
     use Illuminate\Support\Facades\DB;
 
     $info = Information::orderBy('id','desc')->first();
+    $footerTheme = FooterTheme::theme();
 
     $ownerPhone = $info->owner_phone ?? '';
     $ownerEmail = $info->owner_email ?? '';
@@ -23,29 +25,29 @@
 
 <style>
     :root{
-        --footer-bg1: {{ $info->footer_bg1 ?? '#0f172a' }};
-        --footer-bg2: {{ $info->footer_bg2 ?? '#020617' }};
-        --footer-bg3: {{ $info->footer_bg3 ?? '#000000' }};
-        --footer-text: {{ $info->footer_text ?? '#e5e7eb' }};
-        --footer-hover: {{ $info->footer_link_hover ?? '#38bdf8' }};
-        --footer-subtitle: {{ $info->footer_subtitle ?? '#9ca3af' }};
-        --footer-grad1: {{ $info->footer_border_grad1 ?? '#22d3ee' }};
-        --footer-grad2: {{ $info->footer_border_grad2 ?? '#2563eb' }};
-        --pill-bg: {{ $info->footer_pill_bg ?? '#0f172a' }};
-        --pill-border: {{ $info->footer_pill_border ?? '#94a3b8' }};
-        --pill-hover-bg: {{ $info->footer_pill_hover_bg ?? '#0ea5e9' }};
-        --pill-hover-text: {{ $info->footer_pill_hover_text ?? '#0b1120' }};
-        --underline: {{ $info->footer_underline ?? '#38bdf8' }};
-        --social-border: {{ $info->footer_social_border ?? '#94a3b8' }};
-        --social-bg: {{ $info->footer_social_bg ?? '#0f172a' }};
-        --social-hover-bg: {{ $info->footer_social_hover_bg ?? '#0ea5e9' }};
-        --social-hover-text: {{ $info->footer_social_hover_text ?? '#020617' }};
-        --mnav-bg: {{ $info->mnav_bg ?? '#ffffff' }};
-        --mnav-border: {{ $info->mnav_border ?? '#e5e7eb' }};
-        --mnav-icon: {{ $info->mnav_icon ?? '#64748b' }};
-        --mnav-home-bg: {{ $info->mnav_home_bg ?? '#00276C' }};
-        --mnav-home-border: {{ $info->mnav_home_border ?? '#ffffff' }};
-        --mnav-home-icon: {{ $info->mnav_home_icon ?? '#ffffff' }};
+        --footer-bg1: {{ $footerTheme['surface'] }};
+        --footer-bg2: {{ $footerTheme['surface_muted'] }};
+        --footer-bg3: {{ $footerTheme['background'] }};
+        --footer-text: {{ $footerTheme['text_primary'] }};
+        --footer-hover: {{ $footerTheme['accent'] }};
+        --footer-subtitle: {{ $footerTheme['text_secondary'] }};
+        --footer-grad1: {{ $footerTheme['accent'] }};
+        --footer-grad2: {{ $footerTheme['primary'] }};
+        --pill-bg: {{ $footerTheme['surface'] }};
+        --pill-border: {{ $footerTheme['border'] }};
+        --pill-hover-bg: {{ $footerTheme['accent_soft'] }};
+        --pill-hover-text: {{ $footerTheme['accent_hover'] }};
+        --underline: {{ $footerTheme['accent'] }};
+        --social-border: {{ $footerTheme['border'] }};
+        --social-bg: {{ $footerTheme['surface'] }};
+        --social-hover-bg: {{ $footerTheme['primary'] }};
+        --social-hover-text: {{ $footerTheme['primary_text'] }};
+        --mnav-bg: {{ $footerTheme['surface'] }};
+        --mnav-border: {{ $footerTheme['border'] }};
+        --mnav-icon: {{ $footerTheme['text_secondary'] }};
+        --mnav-home-bg: {{ $footerTheme['primary'] }};
+        --mnav-home-border: {{ $footerTheme['primary_text'] }};
+        --mnav-home-icon: {{ $footerTheme['primary_text'] }};
         --ease-out: cubic-bezier(.22,.61,.36,1);
         --ease-bounce: cubic-bezier(.34,1.56,.64,1);
     }
@@ -585,6 +587,8 @@
     }
 </style>
 
+<link rel="stylesheet" href="{{ asset('frontend/css/footer-modern-editorial.css') }}">
+
 <footer class="footer-modern text-light">
     <div class="footer-orb-2"></div>
     <div class="footer-grid-bg"></div>
@@ -709,9 +713,12 @@
             <p class="footer-copy w-100 text-center">
                 {!! $info->copyright ?? '' !!}
                 <span class="mx-1">|</span>
-                <a href="https://www.facebook.com/bizcareit" target="_blank" rel="noopener noreferrer">
-                    Design &amp; Development by Biz Care IT
-                </a>
+                <span>
+                    Design &amp; Development by
+                    <a href="https://triizync.com/" target="_blank" rel="noopener noreferrer">Trizync Solution</a>
+                    <span class="mx-1">&middot;</span>
+                    <a href="https://www.facebook.com/trizyncsolution" target="_blank" rel="noopener noreferrer">Facebook</a>
+                </span>
             </p>
         </div>
     </div>

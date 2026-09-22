@@ -15,8 +15,9 @@
             return $package;
         }
 
-        $unitPrice = (float) ($selectedProduct['order_base_price'] ?? $selectedProduct['price'] ?? 0);
-        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity);
+        $unitPrice = (float) ($selectedProduct['price'] ?? $selectedProduct['order_base_price'] ?? 0);
+        $originalUnitPrice = (float) ($selectedProduct['order_base_price'] ?? $unitPrice);
+        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity, $originalUnitPrice);
 
         return array_merge($package, [
             'title' => $package['title'] ?: ($quantity > 1 ? $quantity . ' x ' . ($selectedProduct['name'] ?? '') : ($selectedProduct['name'] ?? '')),
@@ -96,7 +97,7 @@
                                         <small>{{ $package['subtitle'] }}</small>
                                     @endif
                                     <span class="seed-mobile-package-price">
-                                        @if(!empty($package['has_custom_price']) && !empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
+                                        @if(!empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
                                             <s>{{ $package['original_price'] }}</s>
                                         @endif
                                         <b>{{ $package['price'] ?? '' }}</b>
@@ -121,9 +122,10 @@
 
             <div class="seed-mobile-card seed-mobile-summary">
                 <h2><span class="material-symbols-outlined">receipt_long</span>{{ $content['summary_heading'] ?? '' }}</h2>
-                <div><span>সাব-টোটাল:</span><strong data-mobile-subtotal>{{ $selectedPrice }}</strong></div>
-                <div><span>ডেলিভারি চার্জ:</span><strong>ফ্রি (০৳)</strong></div>
-                <div class="total"><span>সর্বমোট:</span><strong data-mobile-total>{{ $selectedPrice }}</strong></div>
+                @include('landing.components.partials.delivery-charge-options')
+                <div><span>সাব-টোটাল:</span><strong data-mobile-subtotal data-checkout-subtotal>{{ $selectedPrice }}</strong></div>
+                <div><span>ডেলিভারি চার্জ:</span><strong data-checkout-shipping>৳0</strong></div>
+                <div class="total"><span>সর্বমোট:</span><strong data-mobile-total data-checkout-total>{{ $selectedPrice }}</strong></div>
                 @if(!empty($content['guarantee_note']))
                     <p>{{ $content['guarantee_note'] }}</p>
                 @endif

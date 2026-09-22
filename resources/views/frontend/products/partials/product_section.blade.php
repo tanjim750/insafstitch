@@ -58,13 +58,13 @@
         --brand-text: {{ $brandText }};
         
         /* Dynamic Colors from AdminText */
-        --card-bg: {{ $adminText->bg_color ?? '#ffffff' }};
-        --card-border: {{ $adminText->border_color ?? '#efe9e3' }};
-        --thumb-bg: {{ $adminText->section_bg ?? '#f4f1ec' }};
-        --text-main: {{ $adminText->text_color ?? '#0f172a' }};
-        --text-muted: {{ $adminText->text_muted_color ?? '#9aa0a6' }};
-        --primary-color: {{ $adminText->primary_color ?? '#000000' }};
-        --primary-hover: {{ $adminText->primary_hover_color ?? '#222222' }};
+        --card-bg: {{ $homeTheme['surface'] ?? $adminText->bg_color ?? '#ffffff' }};
+        --card-border: {{ $homeTheme['border'] ?? $adminText->border_color ?? '#efe9e3' }};
+        --thumb-bg: {{ $homeTheme['surface_alt'] ?? $adminText->section_bg ?? '#f4f1ec' }};
+        --text-main: {{ $homeTheme['text'] ?? $adminText->text_color ?? '#0f172a' }};
+        --text-muted: {{ $homeTheme['muted'] ?? $adminText->text_muted_color ?? '#9aa0a6' }};
+        --primary-color: {{ $homeTheme['primary'] ?? $adminText->primary_color ?? '#000000' }};
+        --primary-hover: {{ $homeTheme['primary_hover'] ?? $adminText->primary_hover_color ?? '#222222' }};
     }
 
     /* ============================================================

@@ -15,8 +15,9 @@
             return $package;
         }
 
-        $unitPrice = (float) ($selectedProduct['order_base_price'] ?? $selectedProduct['price'] ?? 0);
-        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity);
+        $unitPrice = (float) ($selectedProduct['price'] ?? $selectedProduct['order_base_price'] ?? 0);
+        $originalUnitPrice = (float) ($selectedProduct['order_base_price'] ?? $unitPrice);
+        $priceDisplay = $render->checkoutPackagePrice($package, $definition, $unitPrice, $quantity, $originalUnitPrice);
 
         return array_merge($package, [
             'title' => $quantity > 1
@@ -144,7 +145,7 @@
                                     @endif
                                 </span>
                                 <span class="seed-package-price">
-                                    @if(!empty($package['has_custom_price']) && !empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
+                                    @if(!empty($package['original_price']) && $package['original_price'] !== ($package['price'] ?? null))
                                         <s>{{ $package['original_price'] }}</s>
                                     @endif
                                     <b>{{ $package['price'] ?? '' }}</b>
@@ -156,9 +157,10 @@
 
                 <div class="seed-summary-card seed-order-summary">
                     <h4>{{ $content['summary_title'] ?? '' }}</h4>
-                    <div><span>পণ্য মূল্য</span><span data-seed-checkout-subtotal>{{ $selectedPackage['price'] ?? '' }}</span></div>
-                    <div><span>ডেলিভারি চার্জ</span><span>ফ্রি</span></div>
-                    <strong><span>মোট</span><span data-seed-checkout-total>{{ $selectedPackage['price'] ?? '' }}</span></strong>
+                    @include('landing.components.partials.delivery-charge-options')
+                    <div><span>পণ্য মূল্য</span><span data-seed-checkout-subtotal data-checkout-subtotal>{{ $selectedPackage['price'] ?? '' }}</span></div>
+                    <div><span>ডেলিভারি চার্জ</span><span data-checkout-shipping>৳0</span></div>
+                    <strong><span>মোট</span><span data-seed-checkout-total data-checkout-total>{{ $selectedPackage['price'] ?? '' }}</span></strong>
                 </div>
 
                 <p class="seed-payment-note seed-order-payment">
