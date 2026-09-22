@@ -1,64 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Insaf Stitch / Greenseed - E-Commerce & Dynamic Landing Page Platform
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-## About Laravel
+A high-performance, full-stack E-Commerce and Dynamic Landing Page platform developed by **Trizync Solution**. Built on top of **Laravel 11**, **MySQL**, and **Vite**, this application provides complete end-to-end e-commerce functionality, dynamic landing page builder capabilities, integrated order fulfillment with local Bangladeshi couriers, multi-gateway payments, and real-time financial profit analytics.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🛒 E-Commerce & Product Catalog
+- **Product Management:** Multi-attribute support (colors, sizes, types, categories, subcategories) and inventory stock control.
+- **Product Variations:** Support for multi-variant pricing, image galleries, discount pricing, and promotional tags.
+- **Customer Frontend:** Modern responsive shopping experience, product search, categories navigation, wishlist, shopping cart, and quick checkout.
 
-## Learning Laravel
+### 🎨 Dynamic Landing Page Engine & Builder
+- **Visual Component Builder:** Drag-and-drop landing page engine with modular sections (hero sliders, checkout sections, feature cards, social proof).
+- **Publication & Version Control:** Version snapshot history, component catalog resolvers, theme customizer, and page caching.
+- **Lead Capture & Direct Checkout:** Integrated inline checkout forms directly within landing pages to optimize conversion rates.
+- **Pixel & Event Tracking:** Native integration with Meta Pixel (Facebook Conversion API) and custom analytics events for campaign tracking.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🚚 Order Processing & Courier Integrations
+- **Order Lifecycle Management:** Multi-status order management pipeline (Pending, Processing, Shipped, Delivered, Cancelled, Trash).
+- **Automated Courier Dispatch:** Direct API integrations for courier consignment booking and status tracking:
+  - **Steadfast Courier**
+  - **Pathao Courier**
+  - **RedX Courier**
+  - **Paperfly Courier**
+- **Bulk Operations:** Bulk order status updates, packing slip printing, invoice generation, and Excel data export.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 💳 Payment Gateway Ecosystem
+- **Local & International Gateways:**
+  - **SSLCommerz** (Debit/Credit Cards, Mobile Banking)
+  - **bKash Direct Gateway**
+  - **Nagad Gateway**
+  - **EPS** (Easy Payment System)
+  - **UddoktaPay**
+  - **Stripe**
+- **Cash & Manual Payments:** Cash on Delivery (COD), Manual Bank Transfers, and Direct POS/Cash Sales.
 
-## Laravel Sponsors
+### 📊 Financial Analytics & Profit Calculator
+- **Automated Profit & Loss Tracking:** Dedicated engine calculating net and gross profit per order and overall business timeline (`ProfitCalculatorService`).
+- **Expense Management:** Track ad expenses (Facebook/Google campaign costs), overhead expenses, and inventory purchase expenses.
+- **Real-Time Analytics Dashboard:** Key performance metrics, daily sales velocity, operational expense breakdowns, and inventory alerts.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 🛡️ Security, Governance & Admin Tools
+- **Role-Based Access Control (RBAC):** Granular user permissions powered by Spatie `laravel-permission`.
+- **Activity Logs:** Comprehensive system audit trails tracking admin actions and order modifications (`ActivityLogController`).
+- **IP Blocking System:** Built-in security suite to ban suspicious IP addresses (`IPBlockController`).
+- **Bilingual Interface:** Built-in localization management supporting English and Bangla content adjustments.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## 🛠️ Technology Stack
 
-## Contributing
+| Layer | Technology |
+| :--- | :--- |
+| **Backend Framework** | PHP 8.2+, Laravel 11.x |
+| **Database** | MySQL 8.0+ |
+| **Authentication & AuthZ** | Laravel Sanctum, Spatie Laravel-Permission |
+| **Frontend Assets** | Vite 3.x, Bootstrap 5.2, Sass, jQuery |
+| **Export Utilities** | Maatwebsite Excel 3.1 |
+| **Image Processing** | Intervention Image 2.7 |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 📁 Project Architecture
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+insafsitch/
+├── app/
+│   ├── Console/Commands/       # Custom CLI commands (e.g. app:create-superuser, cache:sweep)
+│   ├── Http/Controllers/
+│   │   ├── Backend/            # Admin controllers (Orders, Products, Landing Pages, Reports, Expenses)
+│   │   └── Frontend/           # Customer controllers (Checkout, Cart, Payments, Account)
+│   ├── Models/                 # Eloquent ORM Models (Product, Order, DynamicLandingPage, ProfitCalculation, etc.)
+│   └── Services/
+│       ├── Landing/            # Dynamic Landing Page builder engine & component resolvers
+│       ├── FacebookConversionService.php # Facebook CAPI integration
+│       └── ProfitCalculatorService.php   # Net profit calculation engine
+├── config/                     # Application & service configuration files
+├── database/
+│   ├── schema/mysql-schema.sql # Consolidated production database schema
+│   ├── seeders/                # Baseline system seeds (Roles, Permissions, Statuses, Settings)
+│   └── migrations/             # Incremental database migrations
+├── docs/
+│   └── page_builder/           # Architecture and implementation guides for the Landing Page Engine
+├── resources/
+│   ├── js/                     # Frontend JS modules and components
+│   ├── sass/                   # Custom styling assets
+│   └── views/                  # Blade templates (Backend dashboard & Frontend store)
+├── routes/
+│   ├── web.php                 # Core web, admin dashboard, and checkout routes
+│   └── api.php                 # External & API endpoints
+└── stitch/                     # UI reference screenshots and HTML design templates
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## ⚙️ Environment Setup & Installation
 
-## License
+### Prerequisites
+- **PHP:** `^8.2` (Extensions required: `pdo_mysql`, `mbstring`, `openssl`, `curl`, `gd` / `imagick`)
+- **Composer:** `^2.x`
+- **Node.js:** `^18.x` or `^20.x` & `npm`
+- **Database:** MySQL `^8.0` or MariaDB `^10.5`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1. Repository Setup & Dependencies
+Clone the repository and install dependencies:
+
+```bash
+git clone <repository-url> insafsitch
+cd insafsitch
+
+# Install PHP dependencies
+composer install
+
+# Install Frontend dependencies
+npm install
+```
+
+### 2. Environment Configuration
+Copy the example `.env` file and generate the application key:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Configure your database and credentials in `.env`:
+```env
+APP_NAME="Insaf Stitch"
+APP_ENV=local
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=insaf_stitch
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Courier API Credentials (Optional / Production)
+STEADFAST_MERCHANT_ID=your_steadfast_id
+STEADFAST_SLIP_BUSINESS_NAME="Your Store Name"
+```
+
+### 3. Database Initialization
+The project uses a consolidated MySQL schema for fresh installations.
+
+```bash
+# Clear any cached configuration
+php artisan config:clear
+
+# Execute database migrations and seed baseline operational defaults
+php artisan migrate --seed
+```
+
+> **Note:** The seeder creates operational defaults (settings, order statuses, permissions, default size/color values, couriers, and delivery charges) without injecting dummy products or orders.
+
+### 4. Create Administrative User
+Use the custom Artisan CLI command to create a superuser admin account:
+
+```bash
+php artisan app:create-superuser
+```
+Follow the interactive prompt to set the admin name, email, and password.
+
+### 5. Link Storage & Compile Assets
+```bash
+# Create symbolic link for public file access (product images, sliders, upload files)
+php artisan storage:link
+
+# Compile frontend assets for development
+npm run dev
+```
+
+### 6. Run the Local Development Server
+```bash
+php artisan serve
+```
+Access the application at `http://localhost:8000`.
+
+---
+
+## 🖥️ Custom CLI Commands
+
+| Command | Description |
+| :--- | :--- |
+| `php artisan app:create-superuser` | Creates an admin user with super-administrator privileges. |
+| `php artisan cache:sweep` | Clears system application caches, compiled views, and route caches. |
+
+---
+
+## 📄 License & Credits
+
+Developed by **Trizync Solution**. All rights reserved. Framework components governed under the [MIT License](LICENSE).
