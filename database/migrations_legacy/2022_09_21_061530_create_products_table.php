@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->smallInteger('category_id');
             $table->decimal('purchase_price',8,2)->nullable()->default(0);
+            $table->decimal('purchase_prices', 12, 2)->nullable()->default(0);
             $table->decimal('sell_price',8,2)->nullable()->default(0);
+            $table->boolean('is_for_you')->nullable()->index();
             $table->string('image')->nullable();
             $table->string('optional_image')->nullable();
             $table->text('description')->nullable();

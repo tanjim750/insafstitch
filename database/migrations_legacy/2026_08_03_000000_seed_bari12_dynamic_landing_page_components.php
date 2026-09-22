@@ -33,7 +33,7 @@ return new class extends Migration
                     'muted_text' => '#64748b',
                 ]),
                 'seo' => $this->json([
-                    'title' => 'Green Seed BD - Bari-12 Eggplant Seeds',
+                    'title' => 'trizync-solution - Bari-12 Eggplant Seeds',
                     'description' => 'বারি বেগুন-১২ প্রিমিয়াম বীজের অফার, সুবিধা, ছবি এবং অর্ডার ফর্ম।',
                 ]),
                 'updated_at' => $now,
@@ -91,7 +91,7 @@ return new class extends Migration
                     'price' => '৳৩০০',
                     'old_price' => '৳৪০০',
                     'timer_label' => 'অফারটি শেষ হবে',
-                    'image_url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDjhj8OnzznHv4rTS22A5ZsKNywZnqtgMYxwp9RxSW5qjm3Brz1SzhBOnJdrXMx6kk3_g9k9YpSXDEHa0qdNjpu8v1SM4U8pdUltr2rjBxMY_7KlrniP9c6KeBV0Tb9LM-BXeHcoC1cy1x0_kmB6rsGllef1uY1lNX_LSy8AHKIPO5D2Jwy3eakzSLDDDIF5NNeoF2jFVilhBc7rrIk2oJCzZoZcn0H2ujiD91E3YpfsQbvZodGqn5p5g',
+                    'image_url' => '/images/no_found.png',
                     'image_alt' => 'A large Bari-12 eggplant held by a farmer in a green field.',
                     'trust_badge' => '১০০% গ্যারান্টি',
                 ],
@@ -135,10 +135,10 @@ return new class extends Migration
                 'content' => [
                     'heading' => 'বারি বেগুন-১২ এর বাস্তব কিছু ছবি',
                     'images' => [
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuCBQNgMJi6Fwusa732E5wN1DW_mJQj9RnHDDDD9TIROfFCdNBoT1iLFqxi3rn8RHn9amQVeeMGmHpsvW3W-3nJFk1IK9UpFPARXUV233Z_clyF1t5viWvQ6M40RuyBoaEJxqLGr_SPPqHBnSuEVkt0NcjitS7iyith9e1yY0dd6Zh5O0Yhey4cpanle0GnJyAGDjVKF6O9oZominghXrzgb5GQMFteIOpgf_hfYUMAMN5ctndk495CWIg', 'alt' => 'Bari-12 eggplants on a plant.'],
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBX2Pxmq1ftGyksXO0Lq4DvIeAPIWXmYYrGseCybV_1Bo142686P6-S2ATsD3EewOSN0yc_CvwE9jC0PiqWXZVTrlRobuZowgHA0feFzt-nl5JB026P-VULwkHJPHoMkmy2zPCAKxOJ8UXGfuUGsQlCgx7Um93-iB2rsDFL28Hb5hWzrzHSpEjN0UIwCD94jGB6KihyEI6Q4WlhNlstWgjSkF5VM0jmDpRmh-17ukSFQHF7tbJLC5jrww', 'alt' => 'Farmer holding harvested Bari-12 eggplants.'],
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQUSHuUBSuVsvcONej0UW-76AExdXi5LvQK5oi2n6pW-lR1BqSCW1BVG-xWQbB856moGROKRBWnS34t3LAJ09BXg7wMm-h_6Q5keQ_yOJECRrCEP-7gP9gizjQT1Kcnl1ZAqNeYPvlbGl8ge-ebv7v5sTrlGNlefLBFc3MDg5kDozjtopz9qjwXEJkg8UdizpOSUNn__en2t4kviZ99WgQw3krPHKHWd6uvQ23C3ceEgkUSIrKygxFLQ', 'alt' => 'Seed packet and gardening tools.'],
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAPKDbqTUxP8f2mv5kOyV1IRb4UGHvhBL1gVgJj6IHBOzNlpQoqAOhDqPU2IJTsx9zCwFz_8E0jRG-dJCoijaY_lzzgp8pwie0nIBVOpDl6mJm1Ajwpy985XKkwq2eg9xffn-S9i1pwX0fZ6b5bFhPsvI-PC4oTCJPFuLgPsREEdgQhQSt8eUa4bLBX5GLiuA2ZXaB6n2qNUP627iRMm5nVcgeIRSKbiQ7VrdJCmipon8ezqAvG9kPjgQ', 'alt' => 'Macro photograph of Bari-12 seeds.'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Bari-12 eggplants on a plant.'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Farmer holding harvested Bari-12 eggplants.'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Seed packet and gardening tools.'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Macro photograph of Bari-12 seeds.'],
                     ],
                 ],
                 'style' => [
@@ -191,8 +191,8 @@ return new class extends Migration
             ], $now),
             $this->component($pageId, 'seed-footer-v1', 'cmp_bari12_footer', 6, [
                 'content' => [
-                    'brand' => 'Green Seed BD',
-                    'description' => '© 2024 Green Seed BD. Growth, precision, and earth-bound reliability.',
+                    'brand' => 'trizync-solution',
+                    'description' => '© 2024 trizync-solution. Growth, precision, and earth-bound reliability.',
                     'links' => [
                         ['label' => 'Privacy Policy', 'url' => '#'],
                         ['label' => 'Terms of Service', 'url' => '#'],

@@ -18,8 +18,12 @@ return new class extends Migration
             $table->BigInteger('order_id');
             $table->BigInteger('product_id');
             $table->tinyInteger('size')->nullable();
+            $table->unsignedBigInteger('variation_id')->nullable()->index();
+            $table->unsignedInteger('quantity')->default(1);
             $table->decimal('unit_price',10,2)->nullable()->default(0);
+            $table->decimal('purchase_price',10,2)->nullable()->default(0);
             $table->decimal('discount',10,2)->nullable()->default(0);
+            $table->boolean('is_stock')->default(true);
             $table->timestamps();
         });
     }

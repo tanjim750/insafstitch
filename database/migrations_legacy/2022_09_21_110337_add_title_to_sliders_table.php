@@ -13,9 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
+        if (! Schema::hasTable('sliders')) {
+            return;
+        }
+
         Schema::table('sliders', function (Blueprint $table) {
-            $table->string('title')->nullable();
-            $table->string('description')->nullable();
+            if (! Schema::hasColumn('sliders', 'title')) {
+                $table->string('title')->nullable();
+            }
+
+            if (! Schema::hasColumn('sliders', 'description')) {
+                $table->text('description')->nullable();
+            }
         });
     }
 
@@ -26,9 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('sliders', function (Blueprint $table) {
-             $table->dropColumn('title');
-             $table->dropColumn('description');
-        });
+        // These columns may be owned by the base sliders migration.
     }
 };
