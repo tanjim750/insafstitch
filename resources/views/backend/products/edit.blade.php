@@ -350,11 +350,6 @@
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <label class="form-label">After Discount</label>
-              <input type="number" step="any" id="after_discount" name="after_discount" class="form-control after_discount" value="{{ $item->after_discount }}">
-            </div>
-
-            <div class="col-lg-3 col-md-6">
               <label class="form-label">Product Weight (KG)</label>
               <input type="number" step="0.01" name="weight" class="form-control" placeholder="Ex: 0.5 or 1.2" value="{{ old('weight', $item->weight ?? 0) }}">
             </div>
@@ -412,7 +407,6 @@
                     <th>Image</th>
                     <th style="width:15%;">Purchase</th>
                     <th style="width:15%;">Price</th>
-                    <th style="width:15%;">Discount Price</th>
                     <th class="stock-col" style="width:15%;">Stock Qty</th>
                     <th style="width:10%;">Action</th>
                   </tr>
@@ -452,9 +446,6 @@
                     <td data-label="Price">
                       <input class="variable_sell_price form-control" type="number" step="any" value="{{ $v->price }}" name="price[]" placeholder="Price">
                     </td>
-                    <td data-label="After Discount">
-                      <input class="variable_dis_price form-control" type="number" step="any" value="{{ $v->after_discount_price }}" name="after_discount_price[]" placeholder="After Discount">
-                    </td>
                     <td data-label="Qty" class="stock-col">
                       <input class="quantity form-control" type="number" step="any" value="{{ (int)($v->stock_quantity ?? 0) }}" name="quantity[]" placeholder="Qty">
                     </td>
@@ -490,9 +481,6 @@
                     </td>
                     <td data-label="Price">
                       <input class="variable_sell_price form-control" type="number" step="any" name="price[]" placeholder="Price">
-                    </td>
-                    <td data-label="After Discount">
-                      <input class="variable_dis_price form-control" type="number" step="any" name="after_discount_price[]" placeholder="After Discount">
                     </td>
                     <td data-label="Qty" class="stock-col">
                       <input class="quantity form-control" type="number" step="any" name="quantity[]" placeholder="Qty">
@@ -640,6 +628,10 @@ $(function(){
   $('#is_stock').on('change', toggleStock);
   toggleStock();
 
+  $('#discount_type').on('change', function(){
+    if(!this.value) $('#dicount_amount').val('');
+  });
+
   $('input[name="sell_price"]').on('blur', function(){
     $('.variable_sell_price').val($(this).val());
   });
@@ -654,7 +646,6 @@ $(function(){
     const row = $(this).closest('tr');
     const p = row.find('.variable_purchase_price').val() || '';
     const s = row.find('.variable_sell_price').val() || '';
-    const d = row.find('.variable_dis_price').val() || '';
     const q = row.find('.quantity').val() || '';
 
     const tpl = `
@@ -681,7 +672,6 @@ $(function(){
       </td>
       <td data-label="Purchase"><input class="variable_purchase_price form-control" type="number" step="any" value="${p}" name="purchase_price[]" placeholder="Purchase"></td>
       <td data-label="Price"><input class="variable_sell_price form-control" type="number" step="any" value="${s}" name="price[]" placeholder="Price"></td>
-      <td data-label="After Discount"><input class="variable_dis_price form-control" type="number" step="any" value="${d}" name="after_discount_price[]" placeholder="After Discount"></td>
       <td data-label="Qty" class="stock-col"><input class="quantity form-control" type="number" step="any" value="${q}" name="quantity[]" placeholder="Qty"></td>
       <td data-label="Action">
         <a class="action-icon btn btn-sm btn-primary add_moore"><i class="mdi mdi-plus"></i></a>

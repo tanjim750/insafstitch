@@ -158,8 +158,17 @@
               </div>
 
               <div class="col-lg-3 col-md-6">
-                <label class="form-label">After Discount</label>
-                <input type="number" step="any" name="after_discount" id="after_discount" class="form-control after_discount" placeholder="After Discount">
+                <label class="form-label">Discount Type</label>
+                <select name="discount_type" id="discount_type" class="form-control">
+                  <option value="">No Discount</option>
+                  <option value="fixed">Fixed</option>
+                  <option value="percentage">Percentage</option>
+                </select>
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label">Discount Amount</label>
+                <input type="number" min="0" step="0.01" name="dicount_amount" id="dicount_amount" class="form-control" placeholder="Discount Amount">
               </div>
 
               <div class="col-lg-3 col-md-6">
@@ -201,7 +210,6 @@
                     <th>Image</th>
                     <th style="width:15%;">Purchase Price</th>
                     <th style="width:15%;">Price</th>
-                    <th style="width:15%;">Discount Price</th>
                     <th class="stock-col" style="width:15%;">Stock Quantity</th>
                     <th style="width:10%;">Action</th>
                   </tr>
@@ -230,7 +238,6 @@
                     </td>
                     <td data-label="Purchase"><input class="variable_purchase_price form-control" type="number" step="any" name="purchase_price[]" placeholder="Purchase Price"></td>
                     <td data-label="Price"><input class="variable_sell_price form-control" type="number" step="any" name="price[]" placeholder="Price"></td>
-                    <td data-label="Discount"><input class="variable_dis_price form-control" type="number" step="any" name="after_discount_price[]" placeholder="Discount Price"></td>
                     <td data-label="Qty" class="stock-col"><input class="variant_qty form-control" type="number" step="any" name="quantity[]" value="1" placeholder="Stock Quantity"></td>
                     <td data-label="Action">
                       <a class="btn btn-sm btn-primary add_row"><i class="mdi mdi-plus"></i></a>
@@ -338,6 +345,10 @@ $(function () {
   }
   $('#is_stock').on('change', toggleStock); toggleStock();
 
+  $('#discount_type').on('change', function(){
+    if(!this.value) $('#dicount_amount').val('');
+  });
+
   $('#image_single').on('change', function(e){
     const f = e.target.files[0]; if(!f) return;
     const url = URL.createObjectURL(f);
@@ -368,13 +379,10 @@ $(function () {
       $('.variant_qty').val($(this).val()); 
   });
 
-  $('input.after_discount').on('blur', function(){ $('.variable_dis_price').val($(this).val()); });
-
   $(document).on('click','.add_row', function(){
     const row = $(this).closest('tr');
     const p = row.find('.variable_purchase_price').val() || '';
     const s = row.find('.variable_sell_price').val() || '';
-    const d = row.find('.variable_dis_price').val() || '';
     const q = row.find('.variant_qty').val() || '';
     
     const tpl = `
@@ -401,7 +409,6 @@ $(function () {
         </td>
         <td data-label="Purchase"><input class="variable_purchase_price form-control" type="number" step="any" name="purchase_price[]" value="${p}" placeholder="Purchase Price"></td>
         <td data-label="Price"><input class="variable_sell_price form-control" type="number" step="any" name="price[]" value="${s}" placeholder="Price"></td>
-        <td data-label="Discount"><input class="variable_dis_price form-control" type="number" step="any" name="after_discount_price[]" value="${d}" placeholder="Discount Price"></td>
         <td data-label="Qty" class="stock-col"><input class="variant_qty form-control" type="number" step="any" name="quantity[]" value="${q || 1}" placeholder="Stock Quantity"></td>
         <td data-label="Action">
           <a class="btn btn-sm btn-primary add_row"><i class="mdi mdi-plus"></i></a>

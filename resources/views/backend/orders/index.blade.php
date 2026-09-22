@@ -349,12 +349,10 @@
             <a class="multi_order_print d-none" href="{{ route('admin.orderList')}}"></a>
         </div>
 
-        {{-- <a class="send_to_redx btn bg-white text-dark action-btn" href="{{ route('admin.createRedxParcel')}}" title="Send to RedX"><i class="mdi mdi-truck-fast text-danger"></i> <span class="d-none d-xl-inline">Redx</span></a> --}}
-        {{-- <a class="send_to_pathao btn bg-white text-dark action-btn" href="{{ route('admin.createPathaoParcel')}}" title="Send to Pathao"><i class="mdi mdi-motorbike text-danger"></i> <span class="d-none d-xl-inline">Pathao</span></a> --}}
-
+        <a class="send_to_redx btn bg-white text-dark action-btn" href="{{ route('admin.createRedxParcel')}}" title="Send to RedX"><i class="mdi mdi-truck-fast text-danger"></i> <span class="d-none d-xl-inline">RedX</span></a>
+        <a class="send_to_pathao btn bg-white text-dark action-btn" href="{{ route('admin.createPathaoParcel')}}" title="Send to Pathao"><i class="mdi mdi-motorbike text-primary"></i> <span class="d-none d-xl-inline">Pathao</span></a>
         <a class="send_to_steadfast btn bg-white text-dark action-btn" href="{{ route('admin.createSteadfastParcel')}}" title="Send to Steadfast"><i class="mdi mdi-truck-delivery text-success"></i> <span class="d-none d-xl-inline">Steadfast</span></a>
-
-        {{-- <a class="send_to_carrybee btn bg-white text-dark action-btn" href="{{ route('admin.createCarrybeeParcel')}}" title="Send to Carrybee"><i class="mdi mdi-bee text-warning"></i> <span class="d-none d-xl-inline">Carrybee</span></a> --}}
+        <a class="send_to_carrybee btn bg-white text-dark action-btn" href="{{ route('admin.createCarrybeeParcel')}}" title="Send to Carrybee"><i class="mdi mdi-bee text-warning"></i> <span class="d-none d-xl-inline">Carrybee</span></a>
 
         <button class="btn bg-white text-dark action-btn" id="btn_courier_status" href="{{ route('admin.updateCourierStatus') }}" title="Sync Courier Status"><i class="mdi mdi-refresh text-primary"></i> <span class="d-none d-xl-inline">Sync Status</span></button>
     </div>
@@ -495,10 +493,10 @@
             <i class="mdi mdi-truck-delivery"></i> Courier
 	        </button>
 	        <ul class="dropdown-menu shadow mb-2" style="border-radius:10px;">
-	            {{-- <li><a class="dropdown-item fw-bold" href="#" id="bb-redx">Redx</a></li> --}}
-	            {{-- <li><a class="dropdown-item fw-bold" href="#" id="bb-pathao">Pathao</a></li> --}}
+	            <li><a class="dropdown-item fw-bold" href="#" id="bb-redx">RedX</a></li>
+	            <li><a class="dropdown-item fw-bold" href="#" id="bb-pathao">Pathao</a></li>
 	            <li><a class="dropdown-item fw-bold" href="#" id="bb-steadfast">Steadfast</a></li>
-	            {{-- <li><a class="dropdown-item fw-bold" href="#" id="bb-carrybee">Carrybee</a></li> --}}
+	            <li><a class="dropdown-item fw-bold" href="#" id="bb-carrybee">Carrybee</a></li>
 	        </ul>
 	    </div>
     <button type="button" class="btn btn-sm btn-success text-white" id="bb-print"><i class="mdi mdi-printer"></i> Print Selected</button>
@@ -988,16 +986,16 @@ $(function(){
         });
     }
     
-    // $(document).on('click', 'a.send_to_redx', function(e){ e.preventDefault(); sendToCourier($(this),'Redx'); });
-    // $(document).on('click', 'a.send_to_pathao', function(e){ e.preventDefault(); sendToCourier($(this),'Pathao'); });
+    $(document).on('click', 'a.send_to_redx', function(e){ e.preventDefault(); sendToCourier($(this),'RedX'); });
+    $(document).on('click', 'a.send_to_pathao', function(e){ e.preventDefault(); sendToCourier($(this),'Pathao'); });
     $(document).on('click', 'a.send_to_steadfast', function(e){ e.preventDefault(); sendToCourier($(this),'Steadfast'); });
 
-    // $('#bb-redx').on('click', function(e){ e.preventDefault(); $('.send_to_redx').first().trigger('click'); });
-    // $('#bb-pathao').on('click', function(e){ e.preventDefault(); $('.send_to_pathao').first().trigger('click'); });
+    $('#bb-redx').on('click', function(e){ e.preventDefault(); $('.send_to_redx').first().trigger('click'); });
+    $('#bb-pathao').on('click', function(e){ e.preventDefault(); $('.send_to_pathao').first().trigger('click'); });
     $('#bb-steadfast').on('click', function(e){ e.preventDefault(); $('.send_to_steadfast').first().trigger('click'); });
 
-    // $(document).on('click', 'a.send_to_carrybee', function(e){ e.preventDefault(); sendToCourier($(this),'Carrybee'); });
-    // $('#bb-carrybee').on('click', function(e){ e.preventDefault(); $('.send_to_carrybee').first().trigger('click'); });
+    $(document).on('click', 'a.send_to_carrybee', function(e){ e.preventDefault(); sendToCourier($(this),'Carrybee'); });
+    $('#bb-carrybee').on('click', function(e){ e.preventDefault(); $('.send_to_carrybee').first().trigger('click'); });
 
     $('#bb-assign').on('click', function(){ $('.btn_modal[href="{{ route("admin.assignUser") }}"]').trigger('click'); });
     $('#bb-status').on('click', function(){ $('.btn_modal[href="{{ route("admin.orderStatusUpdateMulti") }}"]').trigger('click'); });

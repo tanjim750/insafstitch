@@ -267,21 +267,25 @@
                     </div>
 	                    <div class="section-box">
 	                        <div class="row g-2">
+		                            <div class="col-md-3 col-12">
+		                                <label class="form-label">Delivery Charge</label>
+		                                @php($defaultDeliveryChargeId = optional($charges->firstWhere('amount', 0))->id)
+		                                <select class="form-control" name="delivery_charge_id" id="delevery_charge">
+	                                    <option value="" data-charge="0" {{ $defaultDeliveryChargeId ? '' : 'selected' }}>Select One</option>
+	                                    @foreach($charges as $charge)
+	                                        <option value="{{ $charge->id }}" data-charge="{{ $charge->amount }}" {{ $defaultDeliveryChargeId == $charge->id ? 'selected' : '' }}>{{ $charge->title }}</option>
+		                                    @endforeach
+		                                </select>
+		                            </div>
+		                            <div class="col-md-3 col-12">
+		                                <label class="form-label">Discount</label>
+		                                <input type="number" class="form-control" name="discount" id="discount_amount" value="0" min="0" step="0.01" />
+		                            </div>
 	                            <div class="col-md-3 col-12">
-	                                <label class="form-label">Delivery Charge</label>
-	                                <select class="form-control" name="delivery_charge_id" id="delevery_charge">
-                                    <option value="" data-charge="0">Select One</option>
-                                    @foreach($charges as $charge)
-                                        <option value="{{ $charge->id }}" data-charge="{{ $charge->amount }}">{{ $charge->title }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-3 col-12">
-                                <label class="form-label">Total</label>
-                                <input type="text" class="form-control" name="final_amount" id="purchase_total" readonly />
-	                                <input type="hidden" value="0" name="shipping_charge" id="shipping_charge" />
-	                                <input type="hidden" name="discount" id="discount_amount" value="0" />
-	                            </div>
+	                                <label class="form-label">Total</label>
+	                                <input type="text" class="form-control" name="final_amount" id="purchase_total" readonly />
+		                                <input type="hidden" value="0" name="shipping_charge" id="shipping_charge" />
+		                            </div>
 	                            <div class="col-md-3 col-12">
 	                                <label class="form-label">Payment Method</label>
 	                                <select class="form-control" name="payment_method" required>
@@ -409,27 +413,36 @@ $(function(){
         calculateSum();
     });
 
-    $(document).on('input', '.quantity, .unit_price', function(){ calculateSum(); });
+    $(document).on('input', '.quantity, .unit_price, #discount_amount', function(){ calculateSum(); });
     $(document).on('click', '.remove', function(){ $(this).closest('tr').remove(); calculateSum(); });
 
     function calculateSum(){
-        let sub_total = 0; let row_discount = 0;
+        let sub_total = 0;
         let charge = Number($("#delevery_charge option:selected").data('charge')) || 0;
+        let discount = Number($('#discount_amount').val()) || 0;
 
         $("#product_table tbody tr").each(function(){
             let qty = Number($(this).find('.quantity').val()) || 0;
             let price = Number($(this).find('.unit_price').val()) || 0;
-            let discount = Number($(this).find('.unit_discount').val()) || 0; 
             let row_total = qty * price;
-            
-            row_discount += (qty * discount);
+
             $(this).find('.row_total').text(row_total.toFixed(2));
             sub_total += row_total;
         });
 
-        sub_total += charge;
-        $('#purchase_total').val(sub_total.toFixed(2));
-        $('#discount_amount').val(row_discount.toFixed(2));
+        if (discount < 0) {
+            discount = 0;
+            $('#discount_amount').val('0.00');
+        }
+
+        const payableBeforeDiscount = sub_total + charge;
+        if (discount > payableBeforeDiscount) {
+            discount = payableBeforeDiscount;
+            $('#discount_amount').val(discount.toFixed(2));
+        }
+
+        const total = payableBeforeDiscount - discount;
+        $('#purchase_total').val(total.toFixed(2));
         $('#shipping_charge').val(charge.toFixed(2));
     }
 

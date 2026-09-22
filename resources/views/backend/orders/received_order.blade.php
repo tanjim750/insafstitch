@@ -34,11 +34,11 @@
                 
                 <td class="px-1" style="width: 40px;">
                     <div class="d-flex flex-column align-items-center gap-1">
-                        <a href="{{ route('admin.orders.edit',[$item->id])}}" target="_blank" class="btn btn-sm btn-outline-primary p-1 lh-1 action-icon" title="Edit"><i class="mdi mdi-pencil-outline" style="font-size: 14px;"></i></a>
-                        <a href="javascript:void(0);" data-id="{{ $item->id }}" class="btn btn-sm btn-outline-info p-1 lh-1 action-icon view-activity-log" title="Activity Log"><i class="mdi mdi-history" style="font-size: 14px;"></i></a>
-                        @can('order.delete')
-                            <a href="{{ route('admin.orders.destroy',[$item->id])}}" class="btn btn-sm btn-outline-danger p-1 lh-1 delete-order-btn action-icon" title="Delete"><i class="mdi mdi-trash-can-outline" style="font-size: 14px;"></i></a>
-                        @endcan
+	                        <a href="{{ route('admin.orders.edit',[$item->id])}}" target="_blank" class="btn btn-sm btn-outline-primary p-1 lh-1 action-icon" title="Edit"><i class="mdi mdi-pencil-outline" style="font-size: 14px;"></i></a>
+	                        <a href="javascript:void(0);" data-id="{{ $item->id }}" class="btn btn-sm btn-outline-info p-1 lh-1 action-icon view-activity-log" title="Activity Log"><i class="mdi mdi-history" style="font-size: 14px;"></i></a>
+	                        @can('order.delete')
+	                            <a href="javascript:void(0);" data-id="{{ $item->id }}" class="btn btn-sm btn-outline-danger p-1 lh-1 move-order-trash-btn action-icon" title="Move to Trash"><i class="mdi mdi-trash-can-outline" style="font-size: 14px;"></i></a>
+	                        @endcan
                     </div>
                 </td>
 
@@ -182,10 +182,16 @@
                     @endif
                 </td>
 
-                <td class="px-1" style="max-width: 110px;">
+                @php($courierConsignmentId = trim((string) ($item->courier_tracking_id ?? '')))
+                <td
+                    class="px-1 courier-copy-cell {{ $courierConsignmentId !== '' ? 'user-select-all' : '' }}"
+                    style="max-width: 110px; {{ $courierConsignmentId !== '' ? 'cursor: copy;' : '' }}"
+                    data-consignment-id="{{ $courierConsignmentId }}"
+                    title="{{ $courierConsignmentId !== '' ? 'Click to copy consignment ID' : 'No consignment ID' }}"
+                >
                     <div class="cell-stack lh-sm text-wrap">
                         <span class="fw-bold d-block text-truncate" style="font-size: 13px;">{{ $item->courier ? $item->courier->name : '—' }}</span>
-                        <span class="text-muted d-block text-truncate" style="font-size: 12px;">{{$item->courier_tracking_id ?? ''}}</span>
+                        <span class="text-muted d-block text-truncate" style="font-size: 12px;">{{ $courierConsignmentId }}</span>
                         <span class="text-info fw-bold d-block text-truncate" style="font-size: 11px;">{{ $item->courier_status ?? '' }}</span>
                     </div>
                 </td>

@@ -215,7 +215,7 @@
                 </div>
 
                 <div class="pc-insight">
-                    <div class="ttl"><i class="mdi mdi-lightbulb-on-outline"></i> BIZ CARE Insight</div>
+                    <div class="ttl"><i class="mdi mdi-lightbulb-on-outline"></i> Trizync Solution Insight</div>
                     <div id="pc_insights">
                         @foreach(($r['insights'] ?? []) as $msg)
                             <div class="msg"><i class="mdi mdi-flash-outline text-info"></i> {{ $msg }}</div>

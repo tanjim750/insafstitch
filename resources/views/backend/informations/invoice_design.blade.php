@@ -209,8 +209,8 @@
     {{-- =======================================================
                             DESIGN 4
          ======================================================= --}}
-    <div class="col-md-6 col-xl-3">
-        <div class="design-card {{ $currentType === 4 ? 'active-design' : '' }}">
+	    <div class="col-md-6 col-xl-3">
+	        <div class="design-card {{ $currentType === 4 ? 'active-design' : '' }}">
             @if($currentType === 4) <div class="active-badge"><i class="mdi mdi-check"></i> ACTIVE</div> @endif
 
             <div class="design-image-wrapper">
@@ -232,9 +232,58 @@
                     </form>
                 @endif
             </div>
-        </div>
-    </div>
+	        </div>
+	    </div>
 
-</div>
+	    {{-- =======================================================
+	                            DESIGN 5
+	         ======================================================= --}}
+	    <div class="col-md-6 col-xl-3">
+	        <div class="design-card {{ $currentType === 5 ? 'active-design' : '' }}">
+	            @if($currentType === 5) <div class="active-badge"><i class="mdi mdi-check"></i> ACTIVE</div> @endif
+
+	            <div class="design-image-wrapper">
+	                <div style="width: 210px; background: #fff; border: 1px solid #111; font-family: Arial, sans-serif; color: #000; box-shadow: 0 8px 15px rgba(0,0,0,0.06);">
+	                    <div style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #111;">
+	                        <div style="font-size: 10px; font-weight: 800;">trizync-solution Slip</div>
+	                        <div style="font-size: 7px; color: #666;">Merchant ID</div>
+	                    </div>
+	                    <div style="height: 34px; margin: 5px 8px; background: repeating-linear-gradient(90deg,#000 0 2px,#fff 2px 4px,#000 4px 5px,#fff 5px 8px);"></div>
+	                    <div style="display: grid; grid-template-columns: 54px 1fr; gap: 8px; padding: 5px 8px; border-top: 1px solid #111;">
+	                        <div style="height: 54px; background: repeating-linear-gradient(45deg,#000 0 5px,#fff 5px 10px);"></div>
+	                        <div style="font-size: 8px; line-height: 1.45; font-weight: 700;">
+	                            <div>INVOICE</div>
+	                            <div>DELIVERY</div>
+	                            <div>WEIGHT</div>
+	                        </div>
+	                    </div>
+	                    <div style="border-top: 1px solid #111; padding: 5px 8px; font-size: 8px; line-height: 1.45;">
+	                        <div><b>NAME</b> Customer Name</div>
+	                        <div><b>PHONE</b> 01XXXXXXXXX</div>
+	                    </div>
+	                    <div style="margin: 5px 8px; border: 1px solid #111; padding: 4px; display:flex; justify-content:space-between; font-weight:800; font-size:10px;">
+	                        <span>CASH ON DELIVERY</span><span>৳ 1,000</span>
+	                    </div>
+	                </div>
+	            </div>
+	            
+	            <div class="card-content">
+	                <h5 class="design-title">Design 5</h5>
+	                
+	                @if($currentType === 5)
+	                    <button class="btn btn-select" style="background-color: #ecfdf5; color: #059669; border: 1px solid #d1fae5; cursor: default;">
+	                        <i class="mdi mdi-check-circle me-1"></i> Selected
+	                    </button>
+	                @else
+	                    <form action="{{ route('admin.invoice_type.update') }}" method="POST" class="w-100">
+	                        @csrf <input type="hidden" name="type" value="5">
+	                        <button type="submit" class="btn btn-outline-dark btn-select">Select Design</button>
+	                    </form>
+	                @endif
+	            </div>
+	        </div>
+	    </div>
+
+	</div>
 
 @endsection

@@ -428,18 +428,12 @@
                     <span class="menu-text">{{ adm_text('settings_manage','Settings Manage') }}</span>
                 </a>
             </li>
-            <li class="menu-item">
-                <a href="{{ route('update.check') }}" class="menu-link {{ nav_active(['update.check', 'update.process']) }}">
-                    <i class="menu-icon mdi mdi-cloud-sync-outline text-warning"></i>
-                    <span class="menu-text">System Update</span>
-                </a>
-            </li>
             @endif
 
         </ul>
         
         <div class="sidebar-footer">
-            <p>{{ date('Y') }} &copy; BIZ CARE LTD. V-2.5</p>
+            <p>{{ date('Y') }} &copy; <a href="https://triizync.com/" target="_blank" rel="noopener noreferrer">Trizync Solution</a> V-2.5</p>
         </div>
 
     </div>
@@ -447,13 +441,14 @@
 
 <style>
 :root {
-    --nav-w: 252px; 
-    --nav-bg: #0f172a;                
-    --nav-item-color: #94a3b8;     
-    --nav-item-hover: #ffffff;     
-    --nav-active-bg: rgba(67, 24, 255, 0.15); 
-    --nav-active-border: #4318FF; 
-    --nav-accent: #4318FF;         
+    --nav-w: 252px;
+    --nav-collapsed-w: 76px;
+    --nav-bg: var(--admin-primary, #411264);
+    --nav-item-color: rgba(255,255,255,.76);
+    --nav-item-hover: #FFFFFF;
+    --nav-active-bg: rgba(255,255,255,.11);
+    --nav-active-border: var(--admin-accent, #F0A60A);
+    --nav-accent: var(--admin-accent, #F0A60A);
     --nav-header-h: 70px;
 }
 
@@ -466,19 +461,37 @@
     z-index: 99999;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-right: 1px solid var(--admin-primary-hover, #34104F);
+    box-shadow: 8px 0 24px rgba(65,18,100,.05);
+    transition: width .22s ease, transform .22s ease;
 }
 
 @media (min-width: 992px) {
     body.with-sidebar { padding-left: var(--nav-w); }
+    body.sidebar-collapsed { padding-left: var(--nav-collapsed-w); }
+    body.sidebar-collapsed .leftside-menu.leftside-menu-detached { min-width: var(--nav-collapsed-w) !important; max-width: var(--nav-collapsed-w) !important; }
+    body.sidebar-collapsed .premium-sidebar { width: var(--nav-collapsed-w); }
+    body.sidebar-collapsed .sidebar-content { padding-right: 10px; padding-left: 10px; }
+    body.sidebar-collapsed .menu-link { justify-content: center; padding-right: 10px; padding-left: 10px; }
+    body.sidebar-collapsed .menu-icon { margin-right: 0; }
+    body.sidebar-collapsed .menu-text,
+    body.sidebar-collapsed .menu-arrow,
+    body.sidebar-collapsed .menu-dropdown,
+    body.sidebar-collapsed .sidebar-footer,
+    body.sidebar-collapsed .leftbar-user { display: none !important; }
 }
 
 @media (max-width: 991.98px) {
-    .premium-sidebar { position: relative; width: 100%; height: auto; border-right: none; }
+    .leftside-menu.leftside-menu-detached { position: fixed !important; top: var(--nav-header-h); bottom: 0; left: 0; width: min(86vw, 300px) !important; min-width: 0 !important; max-width: none !important; height: auto; z-index: 10020; transform: translateX(-105%); transition: transform .22s ease; }
+    body.sidebar-open .leftside-menu.leftside-menu-detached { transform: translateX(0); }
+    .premium-sidebar { position: relative; width: 100%; height: 100%; border-right: none; }
     body.with-sidebar { padding-left: 0 !important; }
     .sidebar-header { display: none !important; }
+    .admin-sidebar-backdrop { position: fixed; inset: var(--nav-header-h) 0 0; z-index: 10010; display: block; visibility: hidden; border: 0; opacity: 0; background: rgba(23,23,23,.42); transition: opacity .22s ease,visibility .22s ease; }
+    body.sidebar-open .admin-sidebar-backdrop { visibility: visible; opacity: 1; }
 }
+
+@media (min-width: 992px) { .admin-sidebar-backdrop { display: none; } }
 
 .sidebar-header { min-height: var(--nav-header-h); width: 100%; }
 
@@ -499,7 +512,7 @@
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: #475569;
+    color: rgba(255,255,255,.48);
     font-weight: 800;
     margin: 20px 0 10px 15px;
 }
@@ -510,8 +523,8 @@
     padding: 12px 15px;
     color: var(--nav-item-color);
     text-decoration: none !important;
-    border-radius: 12px;
-    transition: all 0.2s;
+    border-radius: 6px;
+    transition: background-color .18s ease,color .18s ease;
     background: transparent;
     border: none;
     width: 100%;
@@ -524,14 +537,14 @@
 
 .menu-link:hover {
     color: var(--nav-item-hover);
-    background: rgba(255,255,255,0.05);
-    transform: translateX(4px);
+    background: var(--nav-active-bg);
 }
 
 .menu-link.active {
     background: var(--nav-active-bg);
-    color: #fff;
+    color: var(--nav-accent);
     font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--nav-active-border);
 }
 
 .menu-icon {
@@ -546,13 +559,13 @@
 
 .menu-arrow {
     font-size: 18px;
-    color: #64748b;
+    color: rgba(255,255,255,.5);
     transition: transform 0.3s ease;
     margin-left: auto;
 }
 .menu-link[aria-expanded="true"] .menu-arrow {
     transform: rotate(90deg);
-    color: #fff;
+    color: var(--nav-accent);
 }
 
 .sub-menu { list-style: none; padding: 5px 0; margin: 0; position: relative; }
@@ -561,17 +574,17 @@
     display: flex;
     align-items: center;
     padding: 10px 15px 10px 50px; 
-    color: #94a3b8;
+    color: var(--nav-item-color);
     font-size: 14px;
     text-decoration: none !important;
     transition: all 0.2s;
-    border-radius: 10px;
+    border-radius: 6px;
     margin-bottom: 2px;
 }
 
 .sub-link:hover, .sub-link.active {
-    color: #fff;
-    background: rgba(255,255,255,0.05);
+    color: var(--nav-accent);
+    background: var(--nav-active-bg);
 }
 
 .sub-link i { font-size: 16px; margin-right: 10px; color: inherit; }
@@ -579,9 +592,9 @@
 .sidebar-footer {
     margin-top: auto;
     padding: 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--admin-border, #E7E2EA);
     text-align: center;
-    color: #475569;
+    color: rgba(255,255,255,.52);
     font-size: 11px;
 }
 

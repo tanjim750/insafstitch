@@ -8,6 +8,8 @@
     $logoUrl = ($info && !empty($info->site_logo))
         ? asset('uploads/img/'.$info->site_logo)
         : asset('backend/img/default-logo.svg'); // fallback
+
+    $adminTheme = require base_path('utils/configurations/admin/theme.php');
 @endphp
 <head>
     <meta charset="utf-8" />
@@ -49,7 +51,96 @@
 
     <!-- Layout overrides -->
     <style>
-        :root{ --ls-w:220px; } /* Desktop sidebar width */
+        :root{
+            --ls-w: 220px;
+            --admin-background: {{ $adminTheme['background'] }};
+            --admin-surface: {{ $adminTheme['surface'] }};
+            --admin-surface-muted: {{ $adminTheme['surface_muted'] }};
+            --admin-text-primary: {{ $adminTheme['text_primary'] }};
+            --admin-text-secondary: {{ $adminTheme['text_secondary'] }};
+            --admin-text-muted: {{ $adminTheme['text_muted'] }};
+            --admin-border: {{ $adminTheme['border'] }};
+            --admin-primary: {{ $adminTheme['primary'] }};
+            --admin-primary-hover: {{ $adminTheme['primary_hover'] }};
+            --admin-primary-text: {{ $adminTheme['primary_text'] }};
+            --admin-accent: {{ $adminTheme['accent'] }};
+            --admin-accent-hover: {{ $adminTheme['accent_hover'] }};
+            --admin-accent-soft: {{ $adminTheme['accent_soft'] }};
+            --ct-body-bg: var(--admin-background);
+            --ct-body-color: var(--admin-text-secondary);
+            --ct-link-color: var(--admin-primary);
+            --ct-link-hover-color: var(--admin-primary-hover);
+            --ct-border-color: var(--admin-border);
+            --ct-component-active-bg: var(--admin-primary);
+            --ct-component-active-color: var(--admin-primary-text);
+            --ct-text-muted: var(--admin-text-muted);
+            --ct-card-bg: var(--admin-surface);
+            --ct-card-border-color: var(--admin-border);
+            --ct-input-bg: var(--admin-surface);
+            --ct-input-color: var(--admin-text-primary);
+            --ct-input-border-color: var(--admin-border);
+            --ct-input-focus-border-color: var(--admin-primary);
+            --ct-bg-dark-topbar: var(--admin-primary);
+            --ct-bg-dark-topbar-search: var(--admin-primary-hover);
+            --ct-nav-user-bg-dark-topbar: var(--admin-primary-hover);
+            --ct-nav-user-border-dark-topbar: rgba(255,255,255,.14);
+            --ct-bg-detached-leftbar: var(--admin-surface);
+            --ct-menu-item: var(--admin-text-secondary);
+            --ct-menu-item-hover: var(--admin-primary);
+            --ct-menu-item-active: var(--admin-primary);
+        }
+
+        body{ background:var(--admin-background); color:var(--admin-text-secondary); }
+        .navbar-custom.topnav-navbar-dark{ background:var(--admin-surface) !important; border-bottom:1px solid var(--admin-border); box-shadow:0 5px 18px rgba(65,18,100,.07); }
+        .navbar-custom.topnav-navbar-dark::after{ position:absolute; right:0; bottom:-1px; left:0; height:2px; background:var(--admin-accent); content:""; }
+        .admin-topbar-inner{ display:flex; align-items:center; justify-content:space-between; min-height:68px; gap:18px; }
+        .admin-topbar-start{ display:flex; align-items:center; min-width:0; gap:10px; }
+        .admin-menu-toggle{ display:inline-flex !important; align-items:center; justify-content:center; width:38px; height:38px; margin:0 !important; border:1px solid var(--admin-primary); border-radius:6px; color:var(--admin-primary); background:var(--admin-surface); transition:background-color .18s ease,color .18s ease; }
+        .admin-menu-toggle:hover{ color:var(--admin-primary-text); background:var(--admin-primary); }
+        .admin-menu-toggle .lines{ width:17px; margin:0; }
+        .admin-menu-toggle .lines span{ width:17px; height:2px; margin:4px 0; background:currentColor; }
+        .admin-brand{ display:flex; align-items:center; min-width:0; gap:10px; color:var(--admin-text-primary); text-decoration:none; }
+        .admin-brand:hover{ color:var(--admin-primary); }
+        .admin-brand img{ width:36px; height:36px; padding:4px; border:1px solid var(--admin-border); border-radius:6px; object-fit:contain; background:var(--admin-surface-muted); }
+        .admin-brand-copy{ display:flex; flex-direction:column; min-width:0; line-height:1.15; }
+        .admin-brand-copy strong{ overflow:hidden; max-width:220px; color:var(--admin-text-primary); font-size:14px; text-overflow:ellipsis; white-space:nowrap; }
+        .admin-brand-copy small{ margin-top:3px; color:var(--admin-text-muted); font-size:11px; }
+        .admin-topbar-actions{ display:flex; align-items:center; gap:6px; }
+        .admin-topbar-actions>li{ display:flex; align-items:center; }
+        .admin-topbar-link{ display:inline-flex !important; align-items:center; min-height:38px; gap:7px; padding:7px 10px !important; border:1px solid var(--admin-border); border-radius:6px; color:var(--admin-text-secondary) !important; background:var(--admin-surface); transition:border-color .18s ease,background-color .18s ease,color .18s ease; }
+        .admin-topbar-link:hover,.admin-topbar-link[aria-expanded="true"]{ border-color:var(--admin-primary); color:var(--admin-primary) !important; background:var(--admin-surface-muted); }
+        .admin-topbar-link .noti-icon{ margin:0 !important; font-size:19px !important; line-height:1 !important; }
+        .admin-topbar-label{ font-size:12px; font-weight:600; }
+        .admin-user-link{ padding:5px 8px !important; }
+        .admin-user-link .account-user-avatar img{ width:30px; height:30px; border:2px solid var(--admin-primary); object-fit:cover; }
+        .admin-user-meta{ display:flex; flex-direction:column; max-width:150px; line-height:1.15; text-align:left; }
+        .admin-user-meta strong{ overflow:hidden; color:var(--admin-text-primary); font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
+        .admin-user-meta small{ margin-top:2px; color:var(--admin-text-muted); font-size:10px; }
+        .admin-user-chevron{ color:var(--admin-text-muted); font-size:16px; }
+        .topbar-dropdown-menu{ margin-top:8px !important; border:1px solid var(--admin-border); border-radius:6px; box-shadow:0 12px 28px rgba(23,23,23,.12); }
+        .profile-dropdown .dropdown-header{ background:var(--admin-surface-muted); }
+        .profile-dropdown .notify-item:hover{ color:var(--admin-primary); background:var(--admin-surface-muted); }
+        .leftside-menu.leftside-menu-detached{ background:var(--admin-surface) !important; border-right:1px solid var(--admin-border); }
+        .leftside-menu .side-nav-link:hover,
+        .leftside-menu .side-nav-link:focus,
+        .leftside-menu .side-nav-link.active{ color:var(--admin-primary) !important; background:var(--admin-surface-muted); }
+        .leftside-menu .side-nav-link.active i,
+        .leftside-menu .side-nav-link:hover i{ color:var(--admin-primary) !important; }
+        .leftbar-user-name{ color:var(--admin-text-primary) !important; }
+        .card,.modal-content,.dropdown-menu{ border-color:var(--admin-border); background-color:var(--admin-surface); }
+        .form-control,.form-select{ border-color:var(--admin-border); color:var(--admin-text-primary); background-color:var(--admin-surface); }
+        .form-control:focus,.form-select:focus{ border-color:var(--admin-primary); box-shadow:0 0 0 .15rem rgba(65,18,100,.12); }
+        .btn-primary,.bg-primary{ border-color:var(--admin-primary) !important; background-color:var(--admin-primary) !important; color:var(--admin-primary-text) !important; }
+        .btn-primary:hover,.btn-primary:focus{ border-color:var(--admin-primary-hover) !important; background-color:var(--admin-primary-hover) !important; }
+        .btn-warning,.bg-warning{ border-color:var(--admin-accent) !important; background-color:var(--admin-accent) !important; color:var(--admin-text-primary) !important; }
+        .btn-warning:hover,.btn-warning:focus{ border-color:var(--admin-accent-hover) !important; background-color:var(--admin-accent-hover) !important; }
+        .text-primary{ color:var(--admin-primary) !important; }
+        .border-primary{ border-color:var(--admin-primary) !important; }
+        .page-title,.card-title,h1,h2,h3,h4,h5,h6{ color:var(--admin-text-primary); }
+        .text-muted{ color:var(--admin-text-muted) !important; }
+        .table{ --ct-table-border-color:var(--admin-border); }
+        .table-hover>tbody>tr:hover>*{ background-color:var(--admin-surface-muted); }
+        .pagination .page-item.active .page-link{ border-color:var(--admin-primary); background:var(--admin-primary); color:var(--admin-primary-text); }
 
         @media print{ .no-print,.no-print *{ display:none !important; } }
 
@@ -72,6 +163,14 @@
                 border-right: 0; box-shadow: none;
             }
             body.with-sidebar{ padding-left:0 !important; }
+            .admin-brand-copy small{ display:none; }
+        }
+
+        @media (max-width: 575.98px){
+            .admin-topbar-inner{ min-height:62px; gap:8px; padding-right:10px; padding-left:10px; }
+            .admin-brand-copy strong{ max-width:110px; font-size:12px; }
+            .admin-topbar-label,.admin-user-meta{ display:none; }
+            .admin-topbar-link{ width:38px; justify-content:center; padding:5px !important; }
         }
 
         .topnav-logo{ display: none !important; }
@@ -90,6 +189,7 @@
         .leftbar-user img.rounded-circle{ width:42px; height:42px; object-fit:cover; }
 
         .content-page .content{ padding-top: 14px; }
+        .content-page{ background:var(--admin-background); }
 
         .footer{ border-top: 1px solid rgba(0,0,0,.05); }
 
@@ -139,30 +239,39 @@
 
     <!-- Topbar Start -->
     <div class="navbar-custom topnav-navbar topnav-navbar-dark">
-        <div class="container-fluid">
+        <div class="container-fluid admin-topbar-inner">
+            <div class="admin-topbar-start">
+                <button type="button" class="button-menu-mobile disable-btn admin-menu-toggle" aria-label="Toggle sidebar" title="Toggle sidebar">
+                    <span class="lines"><span></span><span></span><span></span></span>
+                </button>
 
-            <ul class="list-unstyled topbar-menu float-end mb-0">
-                <li class="dropdown notification-list d-xl-none">
-                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button">
-                        <i class="dripicons-search noti-icon"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                        <form class="p-3"><input type="text" class="form-control" placeholder="Search ..." aria-label="Search"></form>
-                    </div>
-                </li>
+                <a class="admin-brand" href="{{ route('admin.dashboard') }}">
+                    <img src="{{ $logoUrl }}" alt="{{ $info->site_name ?? 'Admin' }} Logo">
+                    <span class="admin-brand-copy">
+                        <strong>{{ $info->site_name ?? 'TriZync' }}</strong>
+                        <small>Administration</small>
+                    </span>
+                </a>
+            </div>
 
+            <ul class="list-unstyled topbar-menu admin-topbar-actions mb-0">
                 <li class="notification-list">
-                    <a class="nav-link" href="{{ route('front.home') }}" target="_blank" aria-label="View Site">
+                    <a class="nav-link admin-topbar-link" href="{{ route('front.home') }}" target="_blank" rel="noopener" aria-label="View storefront" title="View storefront">
                         <i class="dripicons-home noti-icon"></i>
+                        <span class="admin-topbar-label">Storefront</span>
                     </a>
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" id="topbar-userdrop" href="#" role="button">
+                    <a class="nav-link dropdown-toggle nav-user arrow-none me-0 admin-topbar-link admin-user-link" data-bs-toggle="dropdown" id="topbar-userdrop" href="#" role="button">
                         <span class="account-user-avatar">
                             <img src="{{ getImage('uploads/img', Auth::user()->image) }}" alt="user-image" class="rounded-circle">
                         </span>
-                        <span><span class="account-user-name">{{ auth()->user()->first_name }}</span></span>
+                        <span class="admin-user-meta">
+                            <strong>{{ auth()->user()->first_name }}</strong>
+                            <small>Account</small>
+                        </span>
+                        <i class="mdi mdi-chevron-down admin-user-chevron" aria-hidden="true"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
                         <div class="dropdown-header noti-title"><h6 class="m-0">Welcome !</h6></div>
@@ -188,10 +297,6 @@
                     </div>
                 </li>
             </ul>
-
-            <a class="button-menu-mobile disable-btn" aria-label="Toggle Sidebar">
-                <div class="lines"><span></span><span></span><span></span></div>
-            </a>
         </div>
     </div>
     <!-- end Topbar -->

@@ -55,7 +55,6 @@ use App\Http\Controllers\FacebookFeedController;
 use App\Http\Controllers\Backend\ActivityLogController;
 use App\Http\Controllers\Backend\ManualPaymentController;
 
-use App\Http\Controllers\UpdateController;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
@@ -236,11 +235,6 @@ Auth::routes();
 Route::controller(AuthController::class)->group(function(){
     Route::get('/admin','login')->name('admin.login');
     Route::post('/admin-login','postLogin')->name('admin.postLogin');
-});
-
-Route::group(['middleware' => ['auth']], function () { 
-    Route::get('/system-update', [UpdateController::class, 'checkUpdate'])->name('update.check');
-    Route::post('/system-update/process', [UpdateController::class, 'processUpdate'])->name('update.process');
 });
 
 Route::group(['prefix' => 'admin','middleware' => 'auth','as'=>'admin.'], function() {

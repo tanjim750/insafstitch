@@ -5,6 +5,7 @@
     $logoUrl = ($info && !empty($info->site_logo))
         ? asset('uploads/img/'.$info->site_logo)
         : asset('backend/img/default-logo.svg'); 
+    $adminTheme = require base_path('utils/configurations/admin/theme.php');
 @endphp
 <head>
     <meta charset="utf-8" />
@@ -24,7 +25,7 @@
 
     <style>
         :root{ 
-            --ls-w: 240px;         
+            --ls-w: 252px;
             --bg-premium: #0f172a;  
             --bg-footer: #ffffff;   
             --header-h: 70px;       
@@ -126,6 +127,79 @@
         .leftbar-user img.rounded-circle{ width:42px; height:42px; object-fit:cover; }
         .content-page .content{ padding-top: 14px; }
         .footer{ border-top: 1px solid rgba(0,0,0,.05); background-color: var(--bg-footer) !important; }
+
+        :root{
+            --admin-background: {{ $adminTheme['background'] }};
+            --admin-surface: {{ $adminTheme['surface'] }};
+            --admin-surface-muted: {{ $adminTheme['surface_muted'] }};
+            --admin-text-primary: {{ $adminTheme['text_primary'] }};
+            --admin-text-secondary: {{ $adminTheme['text_secondary'] }};
+            --admin-text-muted: {{ $adminTheme['text_muted'] }};
+            --admin-border: {{ $adminTheme['border'] }};
+            --admin-primary: {{ $adminTheme['primary'] }};
+            --admin-primary-hover: {{ $adminTheme['primary_hover'] }};
+            --admin-primary-text: {{ $adminTheme['primary_text'] }};
+            --admin-accent: {{ $adminTheme['accent'] }};
+            --admin-accent-hover: {{ $adminTheme['accent_hover'] }};
+            --admin-accent-soft: {{ $adminTheme['accent_soft'] }};
+            --bg-premium: var(--admin-surface);
+            --bg-footer: var(--admin-surface);
+            --ct-body-bg: var(--admin-background);
+            --ct-body-color: var(--admin-text-secondary);
+            --ct-link-color: var(--admin-primary);
+            --ct-link-hover-color: var(--admin-primary-hover);
+            --ct-border-color: var(--admin-border);
+            --ct-component-active-bg: var(--admin-primary);
+            --ct-component-active-color: var(--admin-primary-text);
+            --ct-text-muted: var(--admin-text-muted);
+            --ct-card-bg: var(--admin-surface);
+            --ct-card-border-color: var(--admin-border);
+            --ct-input-border-color: var(--admin-border);
+            --ct-menu-item: var(--admin-text-secondary);
+            --ct-menu-item-hover: var(--admin-primary);
+            --ct-menu-item-active: var(--admin-primary);
+        }
+        body,.content-page{ background:var(--admin-background) !important; }
+        .navbar-custom{ background:var(--admin-primary) !important; border-bottom:1px solid var(--admin-primary-hover); box-shadow:0 5px 18px rgba(65,18,100,.16); }
+        .navbar-custom::after{ position:absolute; right:0; bottom:-1px; left:0; height:2px; background:var(--admin-accent); content:""; }
+        .admin-topbar-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; min-height:68px; padding:0 18px; gap:18px; }
+        .admin-topbar-start,.admin-topbar-actions>li{ display:flex; align-items:center; }
+        .admin-topbar-start{ min-width:0; gap:10px; }
+        .admin-menu-toggle{ display:inline-flex !important; align-items:center; justify-content:center; width:38px !important; height:38px; margin:0 !important; border:1px solid rgba(255,255,255,.3) !important; border-radius:6px; color:var(--admin-primary-text) !important; background:rgba(255,255,255,.08) !important; transition:border-color .18s ease,background-color .18s ease,color .18s ease; }
+        .admin-menu-toggle:hover,.admin-menu-toggle:focus{ border-color:var(--admin-accent) !important; color:var(--admin-text-primary) !important; background:var(--admin-accent) !important; }
+        .admin-menu-toggle .lines{ width:17px; margin:0; }
+        .admin-menu-toggle .lines span{ display:block; width:17px; height:2px; margin:4px 0; border-radius:2px; background:currentColor; }
+        .admin-brand{ display:flex; align-items:center; min-width:0; gap:10px; color:var(--admin-primary-text); text-decoration:none; }
+        .admin-brand:hover{ color:var(--admin-primary-text); }
+        .admin-brand img{ width:36px; height:36px; padding:4px; border:1px solid rgba(255,255,255,.3); border-radius:6px; object-fit:contain; background:var(--admin-surface); transition:border-color .18s ease,transform .18s ease; }
+        .admin-brand:hover img{ border-color:var(--admin-accent); transform:translateY(-1px); }
+        .admin-brand-copy,.admin-user-meta{ display:flex; flex-direction:column; min-width:0; line-height:1.15; }
+        .admin-brand-copy strong{ overflow:hidden; max-width:220px; color:var(--admin-primary-text); font-size:14px; text-overflow:ellipsis; white-space:nowrap; }
+        .admin-brand-copy small,.admin-user-meta small{ margin-top:3px; color:rgba(255,255,255,.68); font-size:11px; }
+        .admin-topbar-actions{ display:flex; align-items:center; gap:6px; }
+        .admin-topbar-link{ display:inline-flex !important; align-items:center; min-height:38px; gap:7px; padding:7px 10px !important; border:1px solid rgba(255,255,255,.22); border-radius:6px; color:var(--admin-primary-text) !important; background:rgba(255,255,255,.07); transition:border-color .18s ease,background-color .18s ease,color .18s ease,transform .18s ease; }
+        .admin-topbar-link:hover,.admin-topbar-link:focus,.admin-topbar-link[aria-expanded="true"]{ border-color:var(--admin-accent); color:var(--admin-text-primary) !important; background:var(--admin-accent); transform:translateY(-1px); }
+        .navbar-custom .admin-topbar-link:hover .noti-icon,.navbar-custom .admin-topbar-link:focus .noti-icon,.navbar-custom .admin-topbar-link[aria-expanded="true"] .noti-icon{ color:var(--admin-text-primary) !important; }
+        .admin-topbar-link .noti-icon{ margin:0 !important; font-size:19px !important; line-height:1 !important; }
+        .admin-topbar-label{ font-size:12px; font-weight:600; }
+        .admin-user-link .account-user-avatar img{ width:30px; height:30px; border:2px solid rgba(255,255,255,.62); object-fit:cover; }
+        .admin-user-meta{ max-width:150px; text-align:left; }
+        .admin-user-meta strong{ overflow:hidden; color:var(--admin-primary-text); font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
+        .admin-user-chevron{ color:rgba(255,255,255,.68); font-size:16px; }
+        .admin-topbar-link:hover .admin-user-meta strong,.admin-topbar-link:focus .admin-user-meta strong,.admin-topbar-link[aria-expanded="true"] .admin-user-meta strong{ color:var(--admin-text-primary); }
+        .admin-topbar-link:hover .admin-user-meta small,.admin-topbar-link:focus .admin-user-meta small,.admin-topbar-link[aria-expanded="true"] .admin-user-meta small,.admin-topbar-link:hover .admin-user-chevron,.admin-topbar-link:focus .admin-user-chevron,.admin-topbar-link[aria-expanded="true"] .admin-user-chevron{ color:var(--admin-text-secondary); }
+        .leftside-menu.leftside-menu-detached,.leftbar-user{ background:var(--admin-primary) !important; }
+        .leftside-menu.leftside-menu-detached{ border-right:1px solid var(--admin-primary-hover); }
+        .leftbar-user-name{ color:var(--admin-primary-text) !important; }
+        .leftside-menu .side-nav-link{ position:relative; transition:background-color .18s ease,color .18s ease; }
+        .leftside-menu .side-nav-link:hover,.leftside-menu .side-nav-link:focus,.leftside-menu .side-nav-link.active{ color:var(--admin-primary) !important; background:var(--admin-surface-muted); }
+        .leftside-menu .side-nav-link:hover::before,.leftside-menu .side-nav-link.active::before{ position:absolute; top:8px; bottom:8px; left:0; width:3px; border-radius:0 3px 3px 0; background:var(--admin-accent); content:""; }
+        .leftside-menu .side-nav-link:hover i,.leftside-menu .side-nav-link:focus i,.leftside-menu .side-nav-link.active i{ color:var(--admin-primary) !important; }
+        .btn-primary,.bg-primary{ border-color:var(--admin-primary) !important; color:var(--admin-primary-text) !important; background:var(--admin-primary) !important; }
+        .btn-primary:hover{ border-color:var(--admin-primary-hover) !important; background:var(--admin-primary-hover) !important; }
+        .text-primary{ color:var(--admin-primary) !important; }
+        .form-control:focus,.form-select:focus{ border-color:var(--admin-primary); box-shadow:0 0 0 .15rem rgba(65,18,100,.12); }
+        @media(max-width:575.98px){ .admin-topbar-inner{ min-height:62px; padding:0 10px; gap:8px; }.admin-brand-copy strong{ max-width:110px; font-size:12px; }.admin-brand-copy small,.admin-topbar-label,.admin-user-meta{ display:none; }.admin-topbar-link{ width:38px; justify-content:center; padding:5px !important; } }
     </style>
     @stack('css')
 </head>
@@ -133,43 +207,38 @@
 <body class="loading with-sidebar" data-layout="detached" data-layout-color="light" data-rightbar-onstart="true">
 
     <div class="navbar-custom topnav-navbar topnav-navbar-dark">
+        <div class="admin-topbar-inner">
+            <div class="admin-topbar-start">
+                <button type="button" class="admin-menu-toggle" id="adminSidebarToggle" aria-label="Toggle sidebar" aria-controls="appSidebar" aria-expanded="true" title="Toggle sidebar">
+                    <span class="lines"><span></span><span></span><span></span></span>
+                </button>
+                <a class="admin-brand" href="{{ route('admin.dashboard') }}">
+                    <img src="{{ $logoUrl }}" alt="{{ $info->site_name ?? 'Admin' }} Logo">
+                    <span class="admin-brand-copy">
+                        <strong>{{ $info->site_name ?? 'TriZync' }}</strong>
+                        <small>Administration</small>
+                    </span>
+                </a>
+            </div>
 
-        <a href="{{ route('admin.dashboard') }}" class="topnav-logo">
-            @if($logoUrl)
-                <img src="{{ $logoUrl }}" alt="Logo" class="brand-logo">
-            @else
-                <h3 class="text-white mb-0">Admin</h3>
-            @endif
-        </a>
-
-        <div class="navbar-right-content">
-            
-            <a class="button-menu-mobile disable-btn" aria-label="Toggle Sidebar">
-                <div class="lines"><span></span><span></span><span></span></div>
-            </a>
-
-            <ul class="list-unstyled topbar-menu mb-0 d-flex align-items-center ms-auto">
-                <li class="dropdown notification-list d-xl-none">
-                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <i class="dripicons-search noti-icon"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                        <form class="p-3"><input type="text" class="form-control" placeholder="Search ..." aria-label="Search"></form>
-                    </div>
-                </li>
-
+            <ul class="list-unstyled topbar-menu admin-topbar-actions mb-0">
                 <li class="notification-list">
-                    <a class="nav-link" href="{{ route('front.home') }}" target="_blank" aria-label="View Site">
+                    <a class="nav-link admin-topbar-link" href="{{ route('front.home') }}" target="_blank" rel="noopener" aria-label="View storefront" title="View storefront">
                         <i class="dripicons-home noti-icon"></i>
+                        <span class="admin-topbar-label">Storefront</span>
                     </a>
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle nav-user arrow-none me-0 admin-topbar-link admin-user-link" data-bs-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="account-user-avatar">
                             <img src="{{ getImage('uploads/img', Auth::user()->image) }}" alt="user-image" class="rounded-circle">
                         </span>
-                        <span><span class="account-user-name">{{ auth()->user()->first_name }}</span></span>
+                        <span class="admin-user-meta">
+                            <strong>{{ auth()->user()->first_name }}</strong>
+                            <small>Account</small>
+                        </span>
+                        <i class="mdi mdi-chevron-down admin-user-chevron" aria-hidden="true"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
                         <div class="dropdown-header noti-title"><h6 class="m-0">Welcome !</h6></div>
@@ -206,6 +275,7 @@
                 @include('backend.partials.navbar')
                 <div class="clearfix"></div>
             </div>
+            <button type="button" class="admin-sidebar-backdrop" id="adminSidebarBackdrop" aria-label="Close sidebar"></button>
 
             <div class="content-page">
                 <div class="content">
@@ -215,7 +285,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                {{ date('Y') }} &copy; BIZ CARE LTD. V-2.5
+                                {{ date('Y') }} &copy; <a href="https://triizync.com/" target="_blank" rel="noopener noreferrer">Trizync Solution</a> V-2.5
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-md-block">All rights reserved.</div>
@@ -264,6 +334,66 @@
         }, 60000); 
     </script>
     @include('backend.partials.js')
+    <script>
+        (() => {
+            const body = document.body;
+            const toggle = document.getElementById('adminSidebarToggle');
+            const backdrop = document.getElementById('adminSidebarBackdrop');
+            const sidebar = document.getElementById('appSidebar');
+            const desktop = window.matchMedia('(min-width: 992px)');
+
+            if (!toggle) return;
+
+            const syncState = () => {
+                if (desktop.matches) {
+                    body.classList.remove('sidebar-open');
+                    body.classList.toggle('sidebar-collapsed', localStorage.getItem('adminSidebarCollapsed') === '1');
+                    toggle.setAttribute('aria-expanded', body.classList.contains('sidebar-collapsed') ? 'false' : 'true');
+                } else {
+                    body.classList.remove('sidebar-collapsed');
+                    toggle.setAttribute('aria-expanded', body.classList.contains('sidebar-open') ? 'true' : 'false');
+                }
+            };
+
+            const closeMobileSidebar = () => {
+                if (!desktop.matches) {
+                    body.classList.remove('sidebar-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            };
+
+            toggle.addEventListener('click', () => {
+                if (desktop.matches) {
+                    const collapsed = body.classList.toggle('sidebar-collapsed');
+                    localStorage.setItem('adminSidebarCollapsed', collapsed ? '1' : '0');
+                    toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+                    return;
+                }
+
+                const open = body.classList.toggle('sidebar-open');
+                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+
+            backdrop?.addEventListener('click', closeMobileSidebar);
+            sidebar?.querySelectorAll('.menu-link').forEach(link => {
+                const label = link.querySelector('.menu-text')?.textContent?.trim();
+                if (label) link.setAttribute('title', label);
+            });
+            sidebar?.addEventListener('click', event => {
+                if (desktop.matches && body.classList.contains('sidebar-collapsed') && event.target.closest('.has-dropdown')) {
+                    body.classList.remove('sidebar-collapsed');
+                    localStorage.setItem('adminSidebarCollapsed', '0');
+                    toggle.setAttribute('aria-expanded', 'true');
+                }
+                if (event.target.closest('a')) closeMobileSidebar();
+            }, true);
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape') closeMobileSidebar();
+            });
+            desktop.addEventListener?.('change', syncState);
+            syncState();
+        })();
+    </script>
     @stack('script')
 </body>
 </html>
