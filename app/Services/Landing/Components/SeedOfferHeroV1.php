@@ -11,12 +11,12 @@ final class SeedOfferHeroV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Offer Hero';
+        return 'Split Offer Hero';
     }
 
     public function category(): string
     {
-        return 'seed landing';
+        return 'Heroes';
     }
 
     public function view(): string
@@ -63,7 +63,7 @@ final class SeedOfferHeroV1 extends BaseLandingComponent
                 'price' => '৳৩০০',
                 'old_price' => '৳৪০০',
                 'timer_label' => 'অফারটি শেষ হবে',
-                'image_url' => '',
+                'image_url' => '/images/no_found.png',
                 'image_alt' => 'Bari-12 eggplant seeds product image',
                 'trust_badge' => '১০০% গ্যারান্টি',
             ],

@@ -11,12 +11,12 @@ final class SeedMobileTrustHeroV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Mobile Trust + Hero';
+        return 'Mobile Trust Hero';
     }
 
     public function category(): string
     {
-        return 'seed mobile';
+        return 'Mobile Components';
     }
 
     public function view(): string

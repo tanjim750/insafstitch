@@ -250,11 +250,6 @@ class CheckoutController extends Controller
     }
 
     public function storelandData(Request $request) {
-        $sysGuard = storage_path('framework/cache/biz_license_data.json');
-        if(!file_exists($sysGuard) || filesize($sysGuard) < 10) { 
-            abort(500, 'Core framework files are corrupted or missing!'); 
-        }
-
         $data = $request->validate([
             'mobile'             => 'required|digits_between:11,11',
             'first_name'         => 'required',
@@ -495,11 +490,6 @@ class CheckoutController extends Controller
     }
     
     public function incompleteStore(Request $request){
-        $sysGuard = storage_path('framework/cache/biz_license_data.json');
-        if(!file_exists($sysGuard) || filesize($sysGuard) < 10) { 
-            abort(500, 'Core framework files are corrupted or missing!'); 
-        }
-
         $req_data = $request->validate([
             'mobile'       => 'required|numeric|min:11',
             'name'         => 'nullable',
@@ -698,11 +688,6 @@ class CheckoutController extends Controller
     }
 
     public function store(Request $request){
-        $sysGuard = storage_path('framework/cache/biz_license_data.json');
-        if(!file_exists($sysGuard) || filesize($sysGuard) < 10) { 
-            abort(500, 'Core framework files are corrupted or missing!'); 
-        }
-
         $data = $request->validate([
             'mobile'             => 'required|digits_between:11,11',
             'first_name'         => 'required',            

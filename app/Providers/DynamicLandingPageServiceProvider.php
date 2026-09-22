@@ -73,7 +73,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             $registry->register(app(SeedMobileFooterV1::class));
             $registry->register(new Bari12StaticSection(
                 'bari12-top-banner-v1',
-                'Bari-12 Top Banner',
+                'Announcement Banner',
                 'landing.components.bari12-top-banner-v1',
                 [
                     'content' => [
@@ -101,7 +101,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-cta-button-v1',
-                'Bari-12 CTA Button',
+                'Centered CTA',
                 'landing.components.bari12-cta-button-v1',
                 [
                     'content' => [
@@ -126,7 +126,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-hero-image-v1',
-                'Bari-12 Hero Image',
+                'Image Hero with Heading',
                 'landing.components.bari12-hero-image-v1',
                 [
                     'content' => [
@@ -144,7 +144,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
                 [
                     'content' => [
                         'heading' => "বারি -12 বা কেজি বেগুনের বীজ এর সাথে ফ্রী বারোমাসি\nশসার বিজ",
-                        'image_url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQCph1wIety2zyf9_UxgHksBN-PN0gb0mgJ7c0vmfLBaufh1ufoGJXLOKNAGtsndHGXPSh6IzaaAmCg5CQElfCtYvqBjlxcdaIUseF49v-_yPzT84888Gk6JeCyq7z16hH-d1rj8NmJxEp3QbiHEDFrTvo8YYPrccPjzhpTqGci5-ZptzhT20haLb3hPBqOjNYXa30KioFOYaTfSKfHuXX82T0MBygiiUBOVw3xXn6p979LEjf4WrjaA',
+                        'image_url' => '/images/no_found.png',
                         'image_alt' => 'Bari-12 Eggplant and Cucumber Seeds Offer',
                     ],
                     'style' => ['background_color' => '#ffffff', 'card_background' => '#f9ebea', 'heading_color' => '#b91c1c'],
@@ -155,7 +155,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-trust-banner-v1',
-                'Bari-12 Trust Banner',
+                'Trust Banner',
                 'landing.components.bari12-trust-banner-v1',
                 [
                     'content' => ['text' => ['type' => 'text', 'label' => 'Text']],
@@ -172,7 +172,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-benefit-checklist-v1',
-                'Bari-12 Benefit Checklist',
+                'Benefit Checklist',
                 'landing.components.bari12-benefit-checklist-v1',
                 [
                     'content' => [
@@ -200,7 +200,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-offer-details-v1',
-                'Bari-12 Offer Details',
+                'Offer Details with Countdown',
                 'landing.components.bari12-offer-details-v1',
                 [
                     'content' => [
@@ -254,7 +254,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-gallery-v1',
-                'Bari-12 Image Gallery',
+                'Compact Image Gallery',
                 'landing.components.bari12-gallery-v1',
                 [
                     'content' => [
@@ -273,10 +273,10 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
                     'content' => [
                         'heading' => 'বারি বেগুন-১২ এর কিছু ছবি',
                         'images' => [
-                            ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAQAJENLKvWfeKsi4FyvTBMBjcw_rt43t1zHZsH5TGIBKRIdLm0hNTzhM41Bz9bLYlCxe7lMHufr9663obpN_g1VR2Ru3XvNRov3IToUdoDfYHJmPGObfrev7UM2wFvoDz8yh7BS1FY9FIcP5Aom9QOVA5hxI5jV35gqSwKi2WvN-gGVoqhTpJzj71QwUC-aFJ0UpTBHcImdinjYdrB--wZsH4y3KlfsJSZAWcaAmzn4K4ffTHxZCJC1w', 'alt' => 'Eggplant Gallery 1'],
-                            ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAepbRCXYb7o6Tqd-Cid6yLZzWIViaLeLfPeCHNlpHdzIvQGae3v4GM9U7GP-lO40kBUPQgIRo7RfsQHOI3_R7v7AXk4_1kLRqGep8Yhs_hFSkgaqr5vJHKUZvST04oA3wL9PROIbFIGq3D1q5bj4Kue05j15-gsTkHqnsCgihBUCYkhW6sNnSNQ-xsgSAmxXKfUYSyx1D3U3hz-bZPfp6OWk4fRmDQvjlLrsOldGTgaplBGluBiXY5dw', 'alt' => 'Eggplant Gallery 2'],
-                            ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBw3TyBEsMCtSAIIYLwq1Yz0QTtq6wE5t0WSgDeATOxNHVaPkROeQ0aVdZDYwjK7rHpcX11e3vhJUTWVDB5QANKKZTouTxK_FZoJTeSPVzdf4dcnSXvmJpdUuyeQ5p0vQY8ArQvDN0jCXiYMkBP6t7lKR-UVwVf1fLRJuSOR3n9N_ATalawYOxWBKsR0FBVatQSD6hbZsBbCXuos0RYmujkHslyxKpfljnKivEIw3wg8jdnLZAny-aPlg', 'alt' => 'Eggplant Gallery 3'],
-                            ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuB65vTd0OaC9FyO-gz9Oo8l1VW8IAA18d5AZhQw-m6ZyYVxQIRsPklW3ueFOJxNwd68KY-uncVMhaorpRYYiittx1S77cSxHAzfHIAF_Boy1kbWSQMB4hvAY8o0PxJpIhwwcuX8JReZKG2N_YZ4sEBRqCR0E9tklkvtvs4lpKUnLcmYTGh4cNL8XLjTwEh4IzbFFb9FVHme1Rutf6sqFnBl9XXHW9dxsScKyDTKWoD4pMmJHZhh6CBDgg', 'alt' => 'Eggplant Gallery 4'],
+                            ['url' => '/images/no_found.png', 'alt' => 'Eggplant Gallery 1'],
+                            ['url' => '/images/no_found.png', 'alt' => 'Eggplant Gallery 2'],
+                            ['url' => '/images/no_found.png', 'alt' => 'Eggplant Gallery 3'],
+                            ['url' => '/images/no_found.png', 'alt' => 'Eggplant Gallery 4'],
                         ],
                     ],
                     'style' => ['background_color' => '#f7fef9', 'image_border_color' => '#3b82f6'],
@@ -287,7 +287,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-why-us-v1',
-                'Bari-12 Why Us',
+                'Why Choose Us',
                 'landing.components.bari12-why-us-v1',
                 [
                     'content' => [
@@ -320,7 +320,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-whatsapp-contact-v1',
-                'Bari-12 WhatsApp Contact',
+                'Messaging Contact CTA',
                 'landing.components.bari12-whatsapp-contact-v1',
                 [
                     'content' => [
@@ -347,7 +347,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             $registry->register(app(Bari12CheckoutFormV1::class));
             $registry->register(new Bari12StaticSection(
                 'bari12-footer-v1',
-                'Bari-12 Footer',
+                'Simple Footer',
                 'landing.components.bari12-footer-v1',
                 [
                     'content' => ['text' => ['type' => 'text', 'label' => 'Footer Text']],
@@ -355,7 +355,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
                     'settings' => [],
                 ],
                 [
-                    'content' => ['text' => '© 2024 Green Seed BD. All Rights Reserved.'],
+                    'content' => ['text' => '© 2024 trizync-solution. All Rights Reserved.'],
                     'style' => ['background_color' => '#000000'],
                     'settings' => [],
                     'behaviours' => [],
@@ -364,7 +364,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             ));
             $registry->register(new Bari12StaticSection(
                 'bari12-floating-whatsapp-v1',
-                'Bari-12 Floating WhatsApp',
+                'Floating Contact Button',
                 'landing.components.bari12-floating-whatsapp-v1',
                 [
                     'content' => [
@@ -429,10 +429,10 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
     private function registerSheikhSeedsComponents(LandingComponentRegistry $registry): void
     {
-        $category = 'sheikh seeds stitch';
+        $category = null;
         $ctaContent = [
             'label' => 'অফার প্রাইজে অর্ডার করতে এখানে ক্লিক করুন',
-            'url' => '#greenseed-checkout-form',
+            'url' => '#trizync-solution-checkout-form',
         ];
         $ctaStyle = [
             'background_color' => '#ffffff',
@@ -442,7 +442,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-hero-header-v1',
-            'Sheikh Hero Header',
+            'Promotional Hero',
             'landing.components.sheikh-hero-header-v1',
             [
                 'content' => [
@@ -482,7 +482,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-cta-button-v1',
-            'Sheikh CTA Button',
+            'Full-Width CTA',
             'landing.components.sheikh-cta-button-v1',
             [
                 'content' => [
@@ -502,7 +502,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-image-collage-v1',
-            'Sheikh Image Collage',
+            'Image Collage',
             'landing.components.sheikh-image-collage-v1',
             [
                 'content' => [
@@ -518,12 +518,12 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
             [
                 'content' => [
                     'images' => [
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBpbKXAtckaWrID5epnaKkxngf63X_saO_oAUlPxmz8ue0ORbAvoFv7QjJERZIpUzzKQwFdp-xNyjEJ0S1oTMUJd-pfLjjHgB8gIpSsQV4fbHhFBuSPrz86fpe2q2zNf4t5Cv3rbMl52lTzHNVi-KccCc0SjtXzcjobCBz5t5fIxJboh0N0O7GphqkODAl4D_g9w5amu8_cu1OvvkWhhmec7YXOpoEOJIwxoU6sw-nGtzMdx3UdyDwixw', 'alt' => 'Farmer in field'],
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDs5EwdU7OFpPs8k74_7TeslZGtR0rn3YJ6CbDrP_Q1ObVCldqL7dtjQ6c3GR4H2Rp1dVCpnFbMAIzNW9o15Fkyys9_EUuqRtpPo3CUrqf3fY3T7J6U6RR6OwhwiB1avZCdDOHSUNDkri09Ls5iG16zuGq6TagR3W4d8b-ZtsnSg_V-jaOTb86TEvgFlra_WBhDi1eBtD6TAoxp_OXMAAosibwEeGpNgfT2b9R2e68YNpi2YeRA0DBkuA', 'alt' => 'Eggplants on vine'],
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlVqj7aoEU5S_MB-eBRcKfy9M3fnVVhyEKh9IVaBNI1kGox_rwY8oIMQyxwVrgEV6o1hHsC3mKkTri32jGq9TEmDCk7k53J2cMfhLJmtoPdDFxw8plv1TlnuPfVb0Kr1uclAUH-IGY8cm2Zmc_AEDAORLZmnRsOsy4KsfBfXS0HQ2fHAx3stIyyBwtCcRzZfxjmyD58UH10TvGgigoVUanE4krdBALn0uXZj12JUNZ69j3T-QkbZiuBw', 'alt' => 'Harvested eggplants'],
-                        ['url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuCvmdnnFe8OXMrw7MtEJpiD1C5F2s8CZjhq-qeRxLYjmQu-BFigLpZ_SBPRkStT-5i2QeLTXmhaYJr-X8N1EFYbL9p56vFCkM3crGzdvOb1QeoWroSHZiJoX06L7ueDqmycj6wkj1AQ4mFBUpe-Hv-FbJnpCziUGpZuNVyPRUO5ysn7BqepdoXwrvN21iX9MlHjWogIq7Fpgx3ClqYc_qRfj4S1Yk8fLkMDSALvnDdRnXiDXYBLvFysOg', 'alt' => 'Eggplants close up'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Farmer in field'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Eggplants on vine'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Harvested eggplants'],
+                        ['url' => '/images/no_found.png', 'alt' => 'Eggplants close up'],
                     ],
-                    'center_image_url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDikW_yOIiyWHesDIdRgWgMu7EGJT98XSKR0-D_pTjrW_2N1GB9Bim1FE8N4tj88qHJ883947WVuIndh5HTjQ_f_iK-fjXDIF4_jp8LPTmS62FUPsTQP6P0sVnhGzhy7gGUv7PHNlbdFPeZy2xihcE7COwVyxK9BWvy6BUQ58UnXHhPJjuNkSLtuwYASvHxhAPl8CGpzUKlUgqfKrVdMGfKjmBJayyZzboP0Eym_5jUqpySkKlAMCFifg',
+                    'center_image_url' => '/images/no_found.png',
                     'center_image_alt' => 'Single eggplant',
                 ],
                 'style' => ['background_color' => '#dcfce7'],
@@ -552,7 +552,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-features-list-v1',
-            'Sheikh Features List',
+            'Feature List',
             'landing.components.sheikh-features-list-v1',
             $listSchema,
             [
@@ -567,7 +567,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-full-width-image-v1',
-            'Sheikh Full Width Image',
+            'Full-Width Image',
             'landing.components.sheikh-full-width-image-v1',
             [
                 'content' => [
@@ -580,7 +580,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
                 'settings' => [],
             ],
             [
-                'content' => ['image_url' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBp6AkUj1jADJVbOZ4vnvAW8siNWMpFBfVdTq_0fFpQ6xCDGVga63TCoMUSE_IEYUpfYUmxKxxH17X34GNKGzpKAE2Xukw60_kp9uQxS4mzGQ_SgOdkdbZ8W8jGeofzmDKxu-hd8eYEES7hfF48ICi3wtPsFOJDgohwariDNCW8tvQVwCwv9W0qRcedXbeuIojJmFTBjsqf4PkKTX5PWO2xyIZrGzO-7ZmumLe8_At610uE9jTPWWbs5w', 'image_alt' => 'Large eggplant field'],
+                'content' => ['image_url' => '/images/no_found.png', 'image_alt' => 'Large eggplant field'],
                 'style' => ['background_color' => '#ffffff'],
                 'settings' => [],
                 'behaviours' => [],
@@ -591,7 +591,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-trust-list-v1',
-            'Sheikh Trust List',
+            'Trust Features',
             'landing.components.sheikh-trust-list-v1',
             $listSchema,
             [
@@ -609,7 +609,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-countdown-cta-v1',
-            'Sheikh Countdown CTA',
+            'Countdown CTA',
             'landing.components.sheikh-countdown-cta-v1',
             [
                 'content' => [
@@ -640,7 +640,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-testimonials-v1',
-            'Sheikh Testimonials',
+            'Testimonials Grid',
             'landing.components.sheikh-testimonials-v1',
             [
                 'content' => [
@@ -673,7 +673,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-footer-v1',
-            'Sheikh Footer',
+            'Footer with CTA',
             'landing.components.sheikh-footer-v1',
             [
                 'content' => [
@@ -689,7 +689,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
                 'settings' => [],
             ],
             [
-                'content' => ['button_text' => 'অর্ডার করতে এখানে ক্লিক করুন', 'button_url' => '#greenseed-checkout-form', 'text' => '© 2024 Sheikh Seeds. All Rights Reserved.'],
+                'content' => ['button_text' => 'অর্ডার করতে এখানে ক্লিক করুন', 'button_url' => '#trizync-solution-checkout-form', 'text' => '© 2024 trizync-solution. All Rights Reserved.'],
                 'style' => ['background_color' => '#f3f4f6', 'button_color' => '#dc2626', 'button_text_color' => '#ffffff'],
                 'settings' => [],
                 'behaviours' => [],
@@ -700,7 +700,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
 
         $registry->register(new Bari12StaticSection(
             'sheikh-floating-order-bar-v1',
-            'Sheikh Floating Order Bar',
+            'Floating Action Bar',
             'landing.components.sheikh-floating-order-bar-v1',
             [
                 'content' => [
@@ -730,7 +730,7 @@ class DynamicLandingPageServiceProvider extends ServiceProvider
                     'old_price' => '৳৫০০',
                     'price' => '৳২৯৯',
                     'button_text' => 'অর্ডার করুন',
-                    'button_url' => '#greenseed-checkout-form',
+                    'button_url' => '#trizync-solution-checkout-form',
                 ],
                 'style' => [
                     'background_color' => '#fffefb',

@@ -11,12 +11,12 @@ final class SeedMobileOfferCountdownV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Mobile Offer Countdown';
+        return 'Mobile Countdown Offer';
     }
 
     public function category(): string
     {
-        return 'seed mobile';
+        return 'Mobile Components';
     }
 
     public function view(): string

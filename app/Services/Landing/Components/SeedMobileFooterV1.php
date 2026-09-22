@@ -11,12 +11,12 @@ final class SeedMobileFooterV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Mobile Footer';
+        return 'Mobile Footer';
     }
 
     public function category(): string
     {
-        return 'seed mobile';
+        return 'Mobile Components';
     }
 
     public function view(): string
@@ -44,8 +44,8 @@ final class SeedMobileFooterV1 extends BaseLandingComponent
     {
         return [
             'content' => [
-                'brand' => 'Green Seed BD',
-                'copyright' => '© 2024 Green Seed BD. All rights reserved.',
+                'brand' => 'trizync-solution',
+                'copyright' => '© 2024 trizync-solution. All rights reserved.',
                 'links' => [
                     ['label' => 'Privacy Policy', 'url' => '#'],
                     ['label' => 'Terms of Service', 'url' => '#'],

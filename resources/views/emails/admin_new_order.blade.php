@@ -125,7 +125,7 @@
 
             <div class="footer">
                 &copy; {{ date('Y') }} {{ $settings->site_name }}. All rights reserved.<br>
-               BIZ CARE LTD.
+               <a href="https://triizync.com/">Trizync Solution</a>
             </div>
         </div>
     </div>

@@ -14,12 +14,12 @@ final class Bari12CheckoutFormV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Bari-12 Checkout Form';
+        return 'Checkout Card';
     }
 
     public function category(): string
     {
-        return 'bari-12 stitch';
+        return 'Checkout';
     }
 
     public function view(): string
@@ -33,8 +33,6 @@ final class Bari12CheckoutFormV1 extends BaseLandingComponent
             'content' => [
                 'heading' => ['type' => 'text', 'label' => 'Heading'],
                 'billing_heading' => ['type' => 'text', 'label' => 'Billing Heading'],
-                'shipping_heading' => ['type' => 'text', 'label' => 'Shipping Heading'],
-                'shipping_label' => ['type' => 'text', 'label' => 'Shipping Label'],
                 'products_heading' => ['type' => 'text', 'label' => 'Products Heading'],
                 'packages' => ['type' => 'repeater', 'label' => 'Packages'],
                 'order_heading' => ['type' => 'text', 'label' => 'Order Heading'],
@@ -64,8 +62,6 @@ final class Bari12CheckoutFormV1 extends BaseLandingComponent
             'content' => [
                 'heading' => 'অর্ডার করতে নিচের ফর্মটি সঠিক ভাবে পূরন করুন।',
                 'billing_heading' => 'BILLING & SHIPPING',
-                'shipping_heading' => 'Shipping',
-                'shipping_label' => 'ফ্রী ডেলিভারী',
                 'products_heading' => 'Your Products',
                 'packages' => [
                     ['quantity' => 1, 'title' => '১ প্যাকেট বারি -১২ বেগুনের বীজ + ১ প্যাকেট শশা বীজ', 'subtitle' => '', 'price' => '300.00৳'],
@@ -155,6 +151,7 @@ final class Bari12CheckoutFormV1 extends BaseLandingComponent
                 'formatted_price' => function_exists('priceFormate') ? priceFormate($price) : number_format($price, 2),
                 'stock' => $product->total_stock,
                 'availability_text' => $product->availability_text,
+                'is_free_shipping' => (bool) $product->is_free_shipping,
             ],
         ];
     }

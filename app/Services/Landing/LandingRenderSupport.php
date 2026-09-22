@@ -73,8 +73,8 @@ final class LandingRenderSupport
         $position = (int) $position + 1;
 
         return $position === 1
-            ? 'greenseed-checkout-form'
-            : 'greenseed-checkout-form-' . $position;
+            ? 'trizync-solution-checkout-form'
+            : 'trizync-solution-checkout-form-' . $position;
     }
 
     public function layoutStyleVariables(array $resolvedStyle): string
@@ -107,15 +107,21 @@ final class LandingRenderSupport
         array $package,
         LandingComponentDefinition $definition,
         float $unitPrice,
-        int $quantity
+        int $quantity,
+        ?float $originalUnitPrice = null
     ): array {
         $baseTotal = max(0, $unitPrice) * max(1, $quantity);
         $formattedBaseTotal = $this->formatMoney($baseTotal);
         $customPrice = $this->customCheckoutPackagePrice($package, $definition);
+        $activePrice = $customPrice ?? $formattedBaseTotal;
+        $activeTotal = $this->parseMoneyValue($activePrice) ?? $baseTotal;
+        $originalTotal = max(0, $originalUnitPrice ?? $unitPrice) * max(1, $quantity);
 
         return [
-            'price' => $customPrice ?? $formattedBaseTotal,
-            'original_price' => $customPrice ? $formattedBaseTotal : null,
+            'price' => $activePrice,
+            'original_price' => $originalTotal > $activeTotal
+                ? $this->formatMoney($originalTotal)
+                : null,
             'has_custom_price' => (bool) $customPrice,
         ];
     }
@@ -255,14 +261,14 @@ final class LandingRenderSupport
         $suffix = $component->getAttribute('source_component_id') ?? $component->id;
 
         if ($suffix) {
-            return 'greenseed-checkout-form-' . (int) $suffix;
+            return 'trizync-solution-checkout-form-' . (int) $suffix;
         }
 
         $scope = preg_replace('/[^A-Za-z0-9_-]/', '', (string) $component->instance_scope);
 
         return $scope
-            ? 'greenseed-checkout-form-' . $scope
-            : 'greenseed-checkout-form';
+            ? 'trizync-solution-checkout-form-' . $scope
+            : 'trizync-solution-checkout-form';
     }
 
     private function defaultPackageForQuantity(LandingComponentDefinition $definition, int $quantity): ?array

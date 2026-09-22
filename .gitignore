@@ -24,3 +24,4 @@ docs
 stitch
 /stitch
 *.sql
+!database/schema/*.sql

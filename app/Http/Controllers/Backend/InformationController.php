@@ -39,7 +39,7 @@ class InformationController extends Controller
     public function updateInvoiceType(Request $request)
     {
         $request->validate([
-            'type' => 'required|integer|in:1,2,3,4'
+            'type' => 'required|integer|in:1,2,3,4,5'
         ]);
 
         $info = Information::first();

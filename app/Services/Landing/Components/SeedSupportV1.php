@@ -11,12 +11,12 @@ final class SeedSupportV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Support CTA';
+        return 'Support CTA';
     }
 
     public function category(): string
     {
-        return 'seed landing';
+        return 'Contact & Support';
     }
 
     public function view(): string

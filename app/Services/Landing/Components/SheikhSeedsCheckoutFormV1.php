@@ -14,12 +14,12 @@ final class SheikhSeedsCheckoutFormV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Sheikh Seeds Checkout Form';
+        return 'Featured Checkout Form';
     }
 
     public function category(): string
     {
-        return 'sheikh seeds stitch';
+        return 'Checkout';
     }
 
     public function view(): string
@@ -157,6 +157,7 @@ final class SheikhSeedsCheckoutFormV1 extends BaseLandingComponent
                 'formatted_price' => function_exists('priceFormate') ? priceFormate($price) : number_format($price, 2),
                 'stock' => $product->total_stock,
                 'availability_text' => $product->availability_text,
+                'is_free_shipping' => (bool) $product->is_free_shipping,
             ],
         ];
     }

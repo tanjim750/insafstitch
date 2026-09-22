@@ -11,6 +11,6 @@ final class SeedMobileWhyGrowV1 extends SeedMobileChecklistV1
 
     protected function componentName(): string
     {
-        return 'Seed Mobile Why Grow Checklist';
+        return 'Mobile Benefits Checklist';
     }
 }

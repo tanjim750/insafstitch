@@ -11,12 +11,12 @@ final class SeedFooterV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Footer';
+        return 'Footer with Links';
     }
 
     public function category(): string
     {
-        return 'seed landing';
+        return 'Footers';
     }
 
     public function view(): string
@@ -43,8 +43,8 @@ final class SeedFooterV1 extends BaseLandingComponent
     {
         return [
             'content' => [
-                'brand' => 'Green Seed BD',
-                'description' => '© 2024 Green Seed BD. Growth, precision, and earth-bound reliability.',
+                'brand' => 'trizync-solution',
+                'description' => '© 2024 trizync-solution. Growth, precision, and earth-bound reliability.',
                 'links' => [
                     ['label' => 'Privacy Policy', 'url' => '#'],
                     ['label' => 'Terms of Service', 'url' => '#'],

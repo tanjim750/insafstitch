@@ -16,6 +16,7 @@ use App\Models\Variation;
 use DB;
 use App\Exports\ProductExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\ValidationException;
 use Image;
 
 class ProductController extends Controller
@@ -259,15 +260,23 @@ class ProductController extends Controller
             'is_stock' => 'nullable',
             'video_link' => 'nullable',
             'is_video_active' => 'nullable',
-            'discount_type' => 'nullable',
-            'dicount_amount' => 'nullable',
-            'after_discount' => 'nullable',
+            'discount_type' => 'nullable|required_with:dicount_amount|in:fixed,percentage',
+            'dicount_amount' => 'nullable|required_with:discount_type|numeric|min:0',
             'weight' => 'nullable|numeric', 
         ]);
 
         $data['user_id'] = auth()->user()->id;
         $data['is_stock'] = (int) ($request->is_stock ?? 0);
         $data['is_video_active'] = (int) ($request->is_video_active ?? 1);
+        $data['after_discount'] = $this->discountedPrice(
+            $request->sell_price,
+            $request->discount_type,
+            $request->dicount_amount
+        );
+        if ($data['after_discount'] === null) {
+            $data['discount_type'] = null;
+            $data['dicount_amount'] = null;
+        }
         
         $slug = Str::slug($request->name);
         $originalSlug = $slug;
@@ -321,7 +330,6 @@ class ProductController extends Controller
                 $colors = (array) $request->color_id;
                 $purchases = (array) $request->purchase_price;
                 $prices = (array) $request->price;
-                $after = (array) $request->after_discount_price;
                 $qtys = (array) $request->quantity;
                 $varImages = $request->file('variation_image'); 
 
@@ -348,7 +356,11 @@ class ProductController extends Controller
                         'image' => $varImageName, 
                         'purchase_price' => $purchases[$i] ?? 0,
                         'price' => $prices[$i] ?? 0,
-                        'after_discount_price' => $after[$i] ?? null,
+                        'after_discount_price' => $this->discountedPrice(
+                            $prices[$i] ?? 0,
+                            $request->discount_type,
+                            $request->dicount_amount
+                        ),
                         'stock_quantity' => $qty,
                     ]);
 
@@ -368,7 +380,7 @@ class ProductController extends Controller
                     'color_id' => "1",
                     'purchase_price' => $request->purchase_prices,
                     'price' => $request->sell_price,
-                    'after_discount_price' => $request->after_discount,
+                    'after_discount_price' => $data['after_discount'],
                     'stock_quantity' => $qty,
                 ]);
 
@@ -448,14 +460,20 @@ class ProductController extends Controller
             'is_stock' => 'nullable',
             'video_link' => 'nullable',
             'is_video_active' => 'nullable',
-            'discount_type' => 'nullable',
-            'dicount_amount' => 'nullable',
-            'after_discount' => 'nullable',
+            'discount_type' => 'nullable|required_with:dicount_amount|in:fixed,percentage',
+            'dicount_amount' => 'nullable|required_with:discount_type|numeric|min:0',
             'weight' => 'nullable|numeric', 
         ]);
 
-        $data['after_discount'] = $request->after_discount;
-        $data['dicount_amount'] = $request->dicount_amount;
+        $data['after_discount'] = $this->discountedPrice(
+            $request->sell_price,
+            $request->discount_type,
+            $request->dicount_amount
+        );
+        if ($data['after_discount'] === null) {
+            $data['discount_type'] = null;
+            $data['dicount_amount'] = null;
+        }
         $data['is_stock'] = (int) ($request->is_stock ?? 0);
         $data['is_video_active'] = (int) ($request->is_video_active ?? 1);
 
@@ -533,7 +551,7 @@ class ProductController extends Controller
                     'color_id' => "1",
                     'purchase_price' => $request->purchase_prices ?? 0,
                     'price' => $request->sell_price ?? 0,
-                    'after_discount_price' => $request->after_discount,
+                    'after_discount_price' => $data['after_discount'],
                     'stock_quantity' => $qty,
                 ]);
 
@@ -551,7 +569,6 @@ class ProductController extends Controller
             $colorIds = (array) $request->color_id;
             $purchasePrices = (array) $request->purchase_price;
             $prices = (array) $request->price;
-            $afterPrices = (array) $request->after_discount_price;
             $qtys = (array) $request->quantity;
             $varImages = $request->file('variation_image'); 
 
@@ -605,7 +622,11 @@ class ProductController extends Controller
                     }
                     $variable->purchase_price = $purchasePrices[$i] ?? 0;
                     $variable->price = $prices[$i] ?? 0;
-                    $variable->after_discount_price = $afterPrices[$i] ?? null;
+                    $variable->after_discount_price = $this->discountedPrice(
+                        $prices[$i] ?? 0,
+                        $request->discount_type,
+                        $request->dicount_amount
+                    );
                     $variable->stock_quantity = $qty;
                     $variable->save();
 
@@ -621,7 +642,11 @@ class ProductController extends Controller
                         'image' => $varImageName, 
                         'purchase_price' => $purchasePrices[$i] ?? 0,
                         'price' => $prices[$i] ?? 0,
-                        'after_discount_price' => $afterPrices[$i] ?? null,
+                        'after_discount_price' => $this->discountedPrice(
+                            $prices[$i] ?? 0,
+                            $request->discount_type,
+                            $request->dicount_amount
+                        ),
                         'stock_quantity' => $qty,
                     ]);
 
@@ -770,5 +795,39 @@ class ProductController extends Controller
                     ->paginate(30);
 
         return view('backend.products.stock_warning', compact('items', 'threshold'));
-   }
+    }
+
+    private function discountedPrice(mixed $price, ?string $type, mixed $amount): ?float
+    {
+        if ($type === null || $type === '' || $amount === null || $amount === '' || (float) $amount === 0.0) {
+            return null;
+        }
+
+        $price = (float) $price;
+        $amount = (float) $amount;
+
+        if ($price <= 0) {
+            throw ValidationException::withMessages([
+                'sell_price' => 'A selling price greater than zero is required for a discount.',
+            ]);
+        }
+
+        if ($type === 'percentage') {
+            if ($amount >= 100) {
+                throw ValidationException::withMessages([
+                    'dicount_amount' => 'The percentage discount must be less than 100.',
+                ]);
+            }
+
+            return round($price - ($price * $amount / 100), 2);
+        }
+
+        if ($amount >= $price) {
+            throw ValidationException::withMessages([
+                'dicount_amount' => 'The fixed discount must be less than the selling price.',
+            ]);
+        }
+
+        return round($price - $amount, 2);
+    }
 }

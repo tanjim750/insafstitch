@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'steadfast' => [
+        'slip_business_name' => env('STEADFAST_SLIP_BUSINESS_NAME', env('APP_NAME', 'trizync-solution')),
+        'merchant_id' => env('STEADFAST_MERCHANT_ID'),
+    ],
+
 ];

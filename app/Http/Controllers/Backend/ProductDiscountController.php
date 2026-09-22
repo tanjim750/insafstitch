@@ -163,20 +163,38 @@ class ProductDiscountController extends Controller
             abort(403, 'unauthorized');
         }
 
-        // $data=$request->validate([
-        //      'name'=> 'required'
-        // ]);
+        $request->validate([
+            'product_id' => 'required|array',
+            'product_id.*' => 'required|integer|exists:products,id',
+            'dicount_type' => 'required|array',
+            'dicount_type.*' => 'required|in:fixed,percentage',
+            'dicount_amount' => 'required|array',
+            'dicount_amount.*' => 'required|numeric|min:0',
+        ]);
 
         if (isset($request->product_id)) {
             
             foreach ($request->product_id as $key => $product_id) {
                 $product=Product::find($product_id);
-                $dis_amount=$product->sell_price - $request->after_discount[$key];
+                $type = $request->dicount_type[$key];
+                $amount = (float) $request->dicount_amount[$key];
+                $price = (float) $product->sell_price;
+
+                if (($type === 'percentage' && $amount >= 100) || ($type === 'fixed' && $amount >= $price)) {
+                    return response()->json([
+                        'status' => false,
+                        'msg' => "Invalid discount for {$product->name}.",
+                    ], 422);
+                }
+
+                $afterDiscount = $type === 'percentage'
+                    ? $price - ($price * $amount / 100)
+                    : $price - $amount;
+
                 $data=[
-                        'discount_type'=>$request->dicount_type[$key],
-                        'after_discount'=>$request->after_discount[$key],
-                        'discount'=>$request->dicount_amount[$key],
-                        'dicount_amount'=>$dis_amount,
+                        'discount_type' => $type,
+                        'after_discount' => round($afterDiscount, 2),
+                        'dicount_amount' => $amount,
                 ];
 
                 $product->update($data);

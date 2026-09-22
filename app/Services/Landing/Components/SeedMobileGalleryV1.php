@@ -11,12 +11,12 @@ final class SeedMobileGalleryV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Mobile Image Gallery';
+        return 'Mobile Image Gallery';
     }
 
     public function category(): string
     {
-        return 'seed mobile';
+        return 'Mobile Components';
     }
 
     public function view(): string
@@ -45,8 +45,8 @@ final class SeedMobileGalleryV1 extends BaseLandingComponent
             'content' => [
                 'heading' => 'বারি বেগুন-১২ এর কিছু ছবি',
                 'images' => [
-                    ['url' => '', 'alt' => 'Bari-12 Eggplant 1'],
-                    ['url' => '', 'alt' => 'Bari-12 Eggplant 2'],
+                    ['url' => '/images/no_found.png', 'alt' => 'Bari-12 Eggplant 1'],
+                    ['url' => '/images/no_found.png', 'alt' => 'Bari-12 Eggplant 2'],
                 ],
             ],
             'style' => array_merge($this->commonStyleDefaults(), [

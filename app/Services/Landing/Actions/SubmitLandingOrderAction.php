@@ -94,7 +94,8 @@ final class SubmitLandingOrderAction implements LandingTransactionalActionHandle
         $originalAmount = $priceInfo['amount'] ?? round($lineTotal + $discountTotal, 2);
         $this->ensureOrderLimits($quantity, $lineTotal);
         $this->rejectRecentDuplicateOrder($data, $request);
-        $shippingCharge = $this->resolveShippingCharge($product, $quantity, $data['delivery_charge_id'] ?? null);
+        $deliveryCharge = $this->resolveDeliveryCharge($component, $product, $data['delivery_charge_id'] ?? null);
+        $shippingCharge = $deliveryCharge ? (float) $deliveryCharge->amount : 0;
         $user = $this->resolveCustomer($data);
 
         $orderData = [
@@ -106,7 +107,7 @@ final class SubmitLandingOrderAction implements LandingTransactionalActionHandle
             'shipping_address' => $data['shipping_address'],
             'ip_address' => $request->ip(),
             'note' => $data['note'] ?? null,
-            'delivery_charge_id' => $data['delivery_charge_id'] ?? null,
+            'delivery_charge_id' => $deliveryCharge?->id,
             'payment_method' => 'cod',
             'payment_status' => 'due',
             'status' => 'pending',
@@ -446,19 +447,51 @@ final class SubmitLandingOrderAction implements LandingTransactionalActionHandle
         ];
     }
 
-    private function resolveShippingCharge(Product $product, int $quantity, mixed $deliveryChargeId): float
+    private function resolveDeliveryCharge(
+        DynamicLandingPageComponent $component,
+        Product $product,
+        mixed $deliveryChargeId
+    ): ?DeliveryCharge
     {
         if ((int) ($product->is_free_shipping ?? 0) === 1) {
-            return 0;
+            return null;
+        }
+
+        $activeCharges = DeliveryCharge::query()
+            ->where('status', 1)
+            ->orderBy('id');
+
+        if (!$deliveryChargeId && in_array($component->component_key, self::checkoutComponentKeys(), true)) {
+            return $activeCharges->first();
         }
 
         if (!$deliveryChargeId) {
-            return 0;
+            return null;
         }
 
-        $deliveryCharge = DeliveryCharge::find((int) $deliveryChargeId);
+        $deliveryCharge = DeliveryCharge::query()
+            ->whereKey((int) $deliveryChargeId)
+            ->where('status', 1)
+            ->first();
 
-        return $deliveryCharge ? (float) $deliveryCharge->amount : 0;
+        if (!$deliveryCharge) {
+            throw ValidationException::withMessages([
+                'delivery_charge_id' => ['The selected delivery charge is not available.'],
+            ]);
+        }
+
+        return $deliveryCharge;
+    }
+
+    private static function checkoutComponentKeys(): array
+    {
+        return [
+            'seed-checkout-v1',
+            'seed-checkout-v2',
+            'seed-mobile-checkout-sticky-v1',
+            'bari12-checkout-form-v1',
+            'sheikh-checkout-form-v1',
+        ];
     }
 
     private function isVisibleProduct(Product $product): bool

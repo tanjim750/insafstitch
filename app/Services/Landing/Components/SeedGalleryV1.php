@@ -11,12 +11,12 @@ final class SeedGalleryV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Image Gallery';
+        return 'Image Gallery Grid';
     }
 
     public function category(): string
     {
-        return 'seed landing';
+        return 'Media & Galleries';
     }
 
     public function view(): string
@@ -46,10 +46,10 @@ final class SeedGalleryV1 extends BaseLandingComponent
             'content' => [
                 'heading' => 'বারি বেগুন-১২ এর বাস্তব কিছু ছবি',
                 'images' => [
-                    ['url' => '', 'alt' => 'Bari-12 eggplants on plant'],
-                    ['url' => '', 'alt' => 'Farmer holding Bari-12 eggplants'],
-                    ['url' => '', 'alt' => 'Bari-12 seed packet'],
-                    ['url' => '', 'alt' => 'Bari-12 eggplant seeds'],
+                    ['url' => '/images/no_found.png', 'alt' => 'Bari-12 eggplants on plant'],
+                    ['url' => '/images/no_found.png', 'alt' => 'Farmer holding Bari-12 eggplants'],
+                    ['url' => '/images/no_found.png', 'alt' => 'Bari-12 seed packet'],
+                    ['url' => '/images/no_found.png', 'alt' => 'Bari-12 eggplant seeds'],
                 ],
             ],
             'style' => array_merge($this->commonStyleDefaults(), [

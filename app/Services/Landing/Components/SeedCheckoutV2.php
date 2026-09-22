@@ -14,12 +14,12 @@ final class SeedCheckoutV2 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Checkout V2';
+        return 'Checkout with Summary';
     }
 
     public function category(): string
     {
-        return 'seed landing';
+        return 'Checkout';
     }
 
     public function view(): string
@@ -186,6 +186,7 @@ final class SeedCheckoutV2 extends BaseLandingComponent
                 'formatted_old_price' => function_exists('priceFormate') ? priceFormate($oldPrice) : number_format($oldPrice, 2),
                 'stock' => $product->total_stock,
                 'availability_text' => $product->availability_text,
+                'is_free_shipping' => (bool) $product->is_free_shipping,
             ],
         ];
     }

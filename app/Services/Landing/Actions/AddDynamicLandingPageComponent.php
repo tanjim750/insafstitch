@@ -99,7 +99,7 @@ final class AddDynamicLandingPageComponent
             return $config;
         }
 
-        $unitPrice = $this->orderBasePrice($product);
+        $unitPrice = $this->effectivePrice($product);
 
         foreach ($config['content']['packages'] as $index => $package) {
             if (!is_array($package)) {
@@ -149,11 +149,18 @@ final class AddDynamicLandingPageComponent
             ->first();
     }
 
-    private function orderBasePrice(Product $product): float
+    private function effectivePrice(Product $product): float
     {
         $variation = $product->variations()->orderBy('id')->first();
 
-        return (float) ($variation?->price ?: $product->sell_price ?: $product->regular_price ?: 0);
+        return (float) (
+            $variation?->after_discount_price
+            ?: $product->after_discount
+            ?: $variation?->price
+            ?: $product->sell_price
+            ?: $product->regular_price
+            ?: 0
+        );
     }
 
     private function formatMoney(float $amount): string

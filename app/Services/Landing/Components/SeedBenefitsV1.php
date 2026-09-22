@@ -11,12 +11,12 @@ final class SeedBenefitsV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Seed Benefits';
+        return 'Benefits Grid';
     }
 
     public function category(): string
     {
-        return 'seed landing';
+        return 'Benefits & Features';
     }
 
     public function view(): string

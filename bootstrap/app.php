@@ -11,8 +11,6 @@
 |
 */
 
-@include_once dirname(__DIR__) . '/vendor/composer/Support/ClassVersionLoader.php';
-
 defined('LARAVEL_START') || define('LARAVEL_START', microtime(true));
 
 $app = new Illuminate\Foundation\Application(

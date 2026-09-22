@@ -20,7 +20,7 @@ abstract class SeedMobileChecklistV1 extends BaseLandingComponent
 
     public function category(): string
     {
-        return 'seed mobile';
+        return 'Mobile Components';
     }
 
     public function view(): string

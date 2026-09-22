@@ -11,12 +11,12 @@ final class HeroCountdownV1 extends BaseLandingComponent
 
     public function name(): string
     {
-        return 'Hero With Countdown';
+        return 'Hero with Countdown';
     }
 
     public function category(): string
     {
-        return 'hero';
+        return 'Heroes';
     }
 
     public function view(): string

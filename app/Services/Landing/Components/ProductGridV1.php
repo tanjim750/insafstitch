@@ -16,7 +16,7 @@ final class ProductGridV1 extends BaseLandingComponent
 
     public function category(): string
     {
-        return 'products';
+        return 'Products';
     }
 
     public function view(): string
